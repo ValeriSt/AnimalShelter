@@ -1,0 +1,39 @@
+﻿@model IEnumerable<AnimalsIndexViewModel>
+@{
+    ViewData["Title"] = "View";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+        <div class="row">
+             @foreach (var item in Model)
+             {
+            <div class="col-1-of-3">
+                <div class="card">
+                    <div class="card__side card__side--front-1">
+                        <div class="card__details">
+                            <ul>
+                                <img src="@item.ImageUrl" width="150" height="150" />
+                                <li>Name: @item.Name</li>
+                                <li>Status: @item.Status</li>
+                                <li>Location: @item.Location</li>
+                                <a>     
+                                    <a asp-controller="Animals" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             }
+        </div>
+    </body>
+</html>

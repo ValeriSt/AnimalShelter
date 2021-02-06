@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ASComments>
+@{
+    ViewData["Title"] = "View";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <table class="table">
+        @*<p>
+                <a asp-action="Create">Add New</a>
+            </p>*@
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Text)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.user.Email)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Text)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.user.UserName)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </div>
+        </tbody>
+    </table>
+    <div>
+        <a asp-controller="Animals" asp-action="Index">Back to List</a>
+    </div>
+</body>
+</html>
