@@ -7,33 +7,50 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        .button {
+            background-color: red;
+            color: white;
+            padding: 0.5%;
+            box-shadow: 0px 3px darkkhaki;
+            border-radius: 10px 10px;
+            padding: 4px 8px;
+        }
+    </style>
+
 </head>
 <body>
     <p>
-        <a asp-action="Create">Create New</a>
+        <a style="margin-left: 1.5%;" class="button" asp-action="Create">Create New</a>
     </p>
-        <div class="row">
-             @foreach (var item in Model)
-             {
-            <div class="col-1-of-3">
-                <div class="card">
-                    <div class="card__side card__side--front-1">
-                        <div class="card__details">
-                            <ul>
-                                <img src="@item.ImageUrl" width="150" height="150" />
-                                <li>Name: @item.Name</li>
-                                <li>Status: @item.Status</li>
-                                <li>Location: @item.Location</li>
-                                <a>     
-                                    <a asp-controller="Animals" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                                </a>
-                            </ul>
-                        </div>
+    <img style="position: fixed; left: 0; top: 8%" src="https://wordpress.techgasp.com/wp-content/uploads/2013/07/screenshot-65.png" alt="AD" />
+    <img style="position: fixed; right: 0; top: 8%" src="https://wordpress.techgasp.com/wp-content/uploads/2013/07/screenshot-1.png" alt="AD" />
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+        <div style="display: block; width:100%; padding: 2%;" class="col-1-of-3">
+            <div class="card">
+                <div class="card__side card__side--front-1">
+                    <div class="card__details">
+
+                        <ul>
+                            <img src="@item.ImageUrl" width="150" height="150" />
+                            <div style=" vertical-align: middle; display: table-cell; text-align: justify;">
+                                <p>Name: @item.Name</p>
+                                <p>Status: @item.Status</p>
+                                <p>Location: @item.Location</p>
+                            </div>
+                            <a>
+                                <a style="position: absolute; right: 8%; bottom: 3%" class="button" asp-controller="Animals" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                <a style="position: absolute; right: 1%; bottom: 3%" class="button" s asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </a>
+                        </ul>
                     </div>
                 </div>
             </div>
-             }
         </div>
-    </body>
+        }
+    </div>
+</body>
 </html>

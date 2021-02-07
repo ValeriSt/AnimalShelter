@@ -22,3 +22,15 @@ C:\Users\Valeri\Desktop\test25\PossibleAnimalShelter\Data\AS.Data\obj\Debug\nets
 C:\Users\Valeri\Desktop\test25\PossibleAnimalShelter\Data\AS.Data\obj\Debug\netstandard2.0\AS.Data.csproj.CopyComplete
 C:\Users\Valeri\Desktop\test25\PossibleAnimalShelter\Data\AS.Data\obj\Debug\netstandard2.0\AS.Data.dll
 C:\Users\Valeri\Desktop\test25\PossibleAnimalShelter\Data\AS.Data\obj\Debug\netstandard2.0\AS.Data.pdb
+C:\Users\Andy\Source\Repos\AnimalShelter\Data\AS.Data\bin\Debug\netstandard2.0\AS.Data.deps.json
+C:\Users\Andy\Source\Repos\AnimalShelter\Data\AS.Data\bin\Debug\netstandard2.0\AS.Data.dll
+C:\Users\Andy\Source\Repos\AnimalShelter\Data\AS.Data\bin\Debug\netstandard2.0\AS.Data.pdb
+C:\Users\Andy\Source\Repos\AnimalShelter\Data\AS.Data\bin\Debug\netstandard2.0\AS.Data.Models.dll
+C:\Users\Andy\Source\Repos\AnimalShelter\Data\AS.Data\bin\Debug\netstandard2.0\AS.Data.Models.pdb
+C:\Users\Andy\Source\Repos\AnimalShelter\Data\AS.Data\obj\Debug\netstandard2.0\AS.Data.csprojAssemblyReference.cache
+C:\Users\Andy\Source\Repos\AnimalShelter\Data\AS.Data\obj\Debug\netstandard2.0\AS.Data.AssemblyInfoInputs.cache
+C:\Users\Andy\Source\Repos\AnimalShelter\Data\AS.Data\obj\Debug\netstandard2.0\AS.Data.AssemblyInfo.cs
+C:\Users\Andy\Source\Repos\AnimalShelter\Data\AS.Data\obj\Debug\netstandard2.0\AS.Data.csproj.CoreCompileInputs.cache
+C:\Users\Andy\Source\Repos\AnimalShelter\Data\AS.Data\obj\Debug\netstandard2.0\AS.Data.csproj.CopyComplete
+C:\Users\Andy\Source\Repos\AnimalShelter\Data\AS.Data\obj\Debug\netstandard2.0\AS.Data.dll
+C:\Users\Andy\Source\Repos\AnimalShelter\Data\AS.Data\obj\Debug\netstandard2.0\AS.Data.pdb
