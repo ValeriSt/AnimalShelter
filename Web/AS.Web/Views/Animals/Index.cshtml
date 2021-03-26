@@ -1,6 +1,8 @@
-﻿@model IEnumerable<AnimalsIndexViewModel>
+﻿@using AS.Web.Controllers
+@model IEnumerable<AnimalsIndexViewModel>
 @{
     ViewData["Title"] = "View";
+    
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +45,8 @@
                                 </div>
                                 <a>
                                     <a style="position: absolute; right: 8%; bottom: 3%" class="button" asp-controller="Animals" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                    @if (true)
+                                    
+                                    @if (item.IsAuthorized)
                                     {
                                         <a style="position: absolute; right: 1%; bottom: 3%" class="button" s asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                                     }

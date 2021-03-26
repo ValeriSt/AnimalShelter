@@ -21,10 +21,10 @@
                     <li>Status: @Model.Animals.Status</li>
                     <li>Location: @Model.Animals.Location</li>
                     <li>Date & Time: @Model.Animals.DateTime</li>
-                    @*<li>Created by: @Model.Animals.UserId</li>*@
+                    <li>Created by: @Model.Animals.User.Email</li>
                 </ul>
-            @*</dl>
-            <dl class="Comments">
+            </dl>
+            @*<dl class="Comments">
                 <ul>
                     <li>Comments:</li>
                     @foreach(var comment in Model.Animals.Comments)
@@ -36,14 +36,17 @@
             </dl>*@
         </div>
         <div>
-            <a asp-action="Edit" asp-route-id="@Model.Animals.Id">Edit</a> |
-            <a asp-action="Index">Back to List</a>
+            @*@if (Model.Animals.IsAuthorized)
+            {*@
+                <a asp-action="Edit" asp-route-id="@Model.Animals.Id">Edit</a> |
+                                                                               
+        <a asp-action="Index">Back to List</a>
 
-            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                <a asp-controller="Comments" asp-action="PostComments" asp-route-id="@Model.Animals.Id">View Comments</a>
-            </div>
-            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                <a asp-controller="Comments" asp-action="Create" asp-route-id="@Model.Animals.Id">Add Comment</a>
-            </div>
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+            <a asp-controller="Comments" asp-action="PostComments" asp-route-id="@Model.Animals.Id">View Comments</a>
+        </div>
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+            <a asp-controller="Comments" asp-action="Create" asp-route-id="@Model.Animals.Id">Add Comment</a>
+        </div>
 </body>
 </html>

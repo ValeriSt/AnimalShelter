@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web;
 using System.Linq;
 using System.Threading.Tasks;
 using AS.Data;
@@ -26,7 +27,7 @@ namespace AS.Web.Controllers
         }
 
 
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var animals = this.aSDbContext.ASAnimals.Select(animal => new AnimalsIndexViewModel
             {
@@ -34,8 +35,14 @@ namespace AS.Web.Controllers
                 Name = animal.Name,
                 Status = animal.Status,
                 ImageUrl = animal.ImageURL,
-                Location = animal.Location
+                Location = animal.Location,
+                UserId = animal.UserId,
             }).ToList();
+            
+            foreach (var animal in animals)
+            {
+                animal.IsAuthorized = await IsAuthorized(animal.Id);
+            }
             return this.View(animals);
         }
 
@@ -65,7 +72,7 @@ namespace AS.Web.Controllers
             {
                 return NotFound();
             }
-            var animal = await aSDbContext.ASAnimals.FirstOrDefaultAsync(m => m.Id == id);
+            var animal = await aSDbContext.ASAnimals.Include(m => m.User).FirstOrDefaultAsync(m => m.Id == id);
             if (animal == null)
             {
                 return NotFound();
@@ -163,6 +170,13 @@ namespace AS.Web.Controllers
         private bool AnimalExists(string id)
         {
             return aSDbContext.ASAnimals.Any(e => e.Id == id);
+        }
+
+        public async Task<bool> IsAuthorized(string animalId) 
+        {
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            var animals = await aSDbContext.ASAnimals.FindAsync(animalId);
+            return await userManager.IsInRoleAsync(user, "Admin") || animals.UserId == user.Id;
         }
     }
 }
