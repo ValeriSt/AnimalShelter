@@ -13,5 +13,7 @@ namespace AS.Web.Models.ViewModels.CommentViewModels
         public DateTime DateTime { get; set; }
         public string Email { get; set; }
         public string AnimalPostId { get; set; }
+        public string UserId { get; set; }
+        public bool IsAuthorized { get; set; }
     }
 }

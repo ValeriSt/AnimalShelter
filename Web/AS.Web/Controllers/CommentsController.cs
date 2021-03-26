@@ -24,18 +24,18 @@ namespace AS.Web.Controllers
             this.userManager = userMrg;
         }
 
-        public IActionResult Index()
-        {
-            var comments = this.aSDbContext.ASComments.Select(comment => new CommentsIndexViewModel
-            {
-                Id = comment.Id,
-                Text = comment.Text,
-                DateTime = comment.DateTime,
-                Email = comment.user.Email
+        //public IActionResult Index()
+        //{
+        //    var comments = this.aSDbContext.ASComments.Select(comment => new CommentsIndexViewModel
+        //    {
+        //        Id = comment.Id,
+        //        Text = comment.Text,
+        //        DateTime = comment.DateTime,
+        //        Email = comment.user.Email
                 
-            }).ToList();
-            return this.View(comments);
-        }
+        //    }).ToList();
+        //    return this.View(comments);
+        //}
         [HttpGet("/Comments/{Id}/Create")]
         public IActionResult Create(string id)
         {
@@ -138,7 +138,7 @@ namespace AS.Web.Controllers
             return aSDbContext.ASComments.Any(c => c.Id == id);
         }
         [HttpGet("/Comments/{Id}")]
-        public IActionResult PostComments(string id)
+        public async Task<IActionResult> PostComments(string id)
         {
             
             var comments = this.aSDbContext.ASComments.Where(x => x.AnimalPostId == id).Select(comment => new CommentsIndexViewModel
@@ -146,10 +146,21 @@ namespace AS.Web.Controllers
                 Id = comment.Id,
                 Text = comment.Text,
                 DateTime = comment.DateTime,
-                Email = comment.user.Email
+                Email = comment.user.Email,
+                UserId = comment.UserId
 
             }).ToList();
+            foreach (var comment in comments)
+            {
+                comment.IsAuthorized = await IsAuthorized(comment.Id);
+            }
             return this.View(comments);
+        }
+        public async Task<bool> IsAuthorized(string commentId)
+        {
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            var comment = await aSDbContext.ASComments.FindAsync(commentId);
+            return await userManager.IsInRoleAsync(user, "Admin") || comment.UserId == user.Id;
         }
     }
 }
