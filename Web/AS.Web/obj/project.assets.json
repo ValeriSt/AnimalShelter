@@ -8801,23 +8801,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Andy\\.nuget\\packages\\": {},
+    "C:\\Users\\Valeri\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Web\\AS.Web\\AS.Web.csproj",
+      "projectUniqueName": "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Web\\AS.Web\\AS.Web.csproj",
       "projectName": "AS.Web",
-      "projectPath": "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Web\\AS.Web\\AS.Web.csproj",
-      "packagesPath": "C:\\Users\\Andy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Web\\AS.Web\\obj\\",
+      "projectPath": "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Web\\AS.Web\\AS.Web.csproj",
+      "packagesPath": "C:\\Users\\Valeri\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Web\\AS.Web\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Andy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Valeri\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8829,13 +8829,12 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Data\\AS.Data.Models\\AS.Data.Models.csproj": {
-              "projectPath": "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Data\\AS.Data.Models\\AS.Data.Models.csproj"
+            "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Data\\AS.Data.Models\\AS.Data.Models.csproj": {
+              "projectPath": "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Data\\AS.Data.Models\\AS.Data.Models.csproj"
             },
-            "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Data\\AS.Data\\AS.Data.csproj": {
-              "projectPath": "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Data\\AS.Data\\AS.Data.csproj"
+            "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Data\\AS.Data\\AS.Data.csproj": {
+              "projectPath": "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Data\\AS.Data\\AS.Data.csproj"
             }
           }
         }
@@ -8848,7 +8847,6 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
             "target": "Package",
@@ -8891,7 +8889,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.405\\RuntimeIdentifierGraph.json"
       }
     }
   }

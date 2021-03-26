@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Data\\AS.Data\\AS.Data.csproj": {}
+    "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Data\\AS.Data\\AS.Data.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Data\\AS.Data.Models\\AS.Data.Models.csproj": {
+    "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Data\\AS.Data.Models\\AS.Data.Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Data\\AS.Data.Models\\AS.Data.Models.csproj",
+        "projectUniqueName": "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Data\\AS.Data.Models\\AS.Data.Models.csproj",
         "projectName": "AS.Data.Models",
-        "projectPath": "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Data\\AS.Data.Models\\AS.Data.Models.csproj",
-        "packagesPath": "C:\\Users\\Andy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Data\\AS.Data.Models\\obj\\",
+        "projectPath": "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Data\\AS.Data.Models\\AS.Data.Models.csproj",
+        "packagesPath": "C:\\Users\\Valeri\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Data\\AS.Data.Models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Andy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Valeri\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,7 +29,6 @@
         },
         "frameworks": {
           "netstandard2.0": {
-            "targetAlias": "netstandard2.0",
             "projectReferences": {}
           }
         },
@@ -41,7 +40,6 @@
       },
       "frameworks": {
         "netstandard2.0": {
-          "targetAlias": "netstandard2.0",
           "dependencies": {
             "Microsoft.Extensions.Identity.Stores": {
               "target": "Package",
@@ -64,24 +62,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.405\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Data\\AS.Data\\AS.Data.csproj": {
+    "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Data\\AS.Data\\AS.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Data\\AS.Data\\AS.Data.csproj",
+        "projectUniqueName": "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Data\\AS.Data\\AS.Data.csproj",
         "projectName": "AS.Data",
-        "projectPath": "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Data\\AS.Data\\AS.Data.csproj",
-        "packagesPath": "C:\\Users\\Andy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Data\\AS.Data\\obj\\",
+        "projectPath": "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Data\\AS.Data\\AS.Data.csproj",
+        "packagesPath": "C:\\Users\\Valeri\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Data\\AS.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Andy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Valeri\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -93,10 +91,9 @@
         },
         "frameworks": {
           "netstandard2.0": {
-            "targetAlias": "netstandard2.0",
             "projectReferences": {
-              "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Data\\AS.Data.Models\\AS.Data.Models.csproj": {
-                "projectPath": "C:\\Users\\Andy\\Source\\Repos\\AnimalShelter\\Data\\AS.Data.Models\\AS.Data.Models.csproj"
+              "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Data\\AS.Data.Models\\AS.Data.Models.csproj": {
+                "projectPath": "C:\\Users\\Valeri\\Documents\\Repository\\AnimalShelter\\Data\\AS.Data.Models\\AS.Data.Models.csproj"
               }
             }
           }
@@ -109,7 +106,6 @@
       },
       "frameworks": {
         "netstandard2.0": {
-          "targetAlias": "netstandard2.0",
           "dependencies": {
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
@@ -148,7 +144,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.405\\RuntimeIdentifierGraph.json"
         }
       }
     }
