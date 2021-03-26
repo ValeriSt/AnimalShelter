@@ -1,3 +1,0 @@
-C:\Users\Valeri\Desktop\test25\PossibleAnimalShelter\Data\AS.Data\obj\Debug\netcoreapp3.1\AS.Data.AssemblyInfoInputs.cache
-C:\Users\Valeri\Desktop\test25\PossibleAnimalShelter\Data\AS.Data\obj\Debug\netcoreapp3.1\AS.Data.AssemblyInfo.cs
-C:\Users\Valeri\Desktop\test25\PossibleAnimalShelter\Data\AS.Data\obj\Debug\netcoreapp3.1\AS.Data.csproj.CoreCompileInputs.cache
