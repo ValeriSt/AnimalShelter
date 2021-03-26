@@ -12,5 +12,6 @@ namespace AS.Web.Models.ViewModels.AnimalViewModels
         public string Status { get; set; }
         public string ImageUrl { get; set; }
         public string Location { get; set; }
+        public string UserId { get; set; }
     }
 }

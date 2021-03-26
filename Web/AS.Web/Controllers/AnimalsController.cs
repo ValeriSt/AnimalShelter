@@ -7,6 +7,7 @@ using AS.Data.Models;
 using AS.Web.Models.ViewModels;
 using AS.Web.Models.ViewModels.AnimalViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,9 +17,12 @@ namespace AS.Web.Controllers
     {
         private readonly ASDbContext aSDbContext;
 
-        public AnimalsController(ASDbContext aSDbContext)
+        private UserManager<ASUser> userManager;
+
+        public AnimalsController(ASDbContext aSDbContext, UserManager<ASUser> userMrg)
         {
             this.aSDbContext = aSDbContext;
+            this.userManager = userMrg;
         }
 
 
@@ -42,10 +46,12 @@ namespace AS.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("Id,AnimalType,Name,Age,Color,ImageURL,Sex,Status,Location,DateTime")] ASAnimals animals)
+        public async Task<IActionResult> Create([Bind("Id,AnimalType,Name,Age,Color,ImageURL,Sex,Status,Location,DateTime,UserId")] ASAnimals animals)
         {
             if (ModelState.IsValid)
             {
+                var user = await userManager.GetUserAsync(HttpContext.User);
+                animals.UserId = user.Id;
                 animals.Id = Guid.NewGuid().ToString();
                 aSDbContext.Add(animals);
                 await aSDbContext.SaveChangesAsync();
@@ -93,7 +99,7 @@ namespace AS.Web.Controllers
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,AnimalType,Name,Age,Color,ImageURL,Sex,Status,Location,DateTime")] ASAnimals animals)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,AnimalType,Name,Age,Color,ImageURL,Sex,Status,Location,DateTime,UserId")] ASAnimals animals)
         {
             
             if (id != animals.Id)

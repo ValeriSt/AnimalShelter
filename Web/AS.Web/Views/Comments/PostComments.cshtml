@@ -1,7 +1,7 @@
-﻿@model IEnumerable<CommentsIndexViewModel>
-@{
-    ViewData["Title"] = "View";
-}
+﻿@using System.Text.RegularExpressions
+@{Regex regex = new Regex("[^//]+.$"); }
+@model IEnumerable<CommentsIndexViewModel>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,9 +11,9 @@
 
 <body>
     <table class="table">
-        @*<p>
-                <a asp-action="Create">Add New</a>
-            </p>*@
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+            <a asp-controller="Comments" asp-action="Create" asp-route-id="@regex.Match(Context.Request.Path)">Add New Comment</a>
+        </div>
         <thead>
             <tr>
                 <th>

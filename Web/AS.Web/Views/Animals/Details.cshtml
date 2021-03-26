@@ -7,9 +7,6 @@
         <title>Details</title>
     </head>
     <body>
-        <img style="position: fixed; left: 0; top: 8%" src="https://wordpress.techgasp.com/wp-content/uploads/2013/07/screenshot-65.png" alt="AD" />
-        <img style="position: fixed; right: 0; top: 8%" src="https://wordpress.techgasp.com/wp-content/uploads/2013/07/screenshot-1.png" alt="AD" />
-
         <div>
             <h4>@Model.Animals.Name</h4>
             <hr />
@@ -26,26 +23,27 @@
                     <li>Date & Time: @Model.Animals.DateTime</li>
                     @*<li>Created by: @Model.Animals.UserId</li>*@
                 </ul>
-                @*</dl>
-                <dl class="Comments">
-                    <ul>
-                        <li>Comments:</li>
-                        @foreach(var comment in Model.Animals.Comments)
-                        {
-                            <li>@comment.Text</li>
-                            <li>@comment.DateTime</li>
-                        }
-                    </ul>
-                </dl>*@
+            @*</dl>
+            <dl class="Comments">
+                <ul>
+                    <li>Comments:</li>
+                    @foreach(var comment in Model.Animals.Comments)
+                    {
+                        <li>@comment.Text</li>
+                        <li>@comment.DateTime</li>
+                    }
+                </ul>
+            </dl>*@
         </div>
         <div>
             <a asp-action="Edit" asp-route-id="@Model.Animals.Id">Edit</a> |
             <a asp-action="Index">Back to List</a>
+
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                <a asp-controller="Comments" asp-action="Index" asp-route-id="@Model.Animals.Id">View Comments</a>
+                <a asp-controller="Comments" asp-action="PostComments" asp-route-id="@Model.Animals.Id">View Comments</a>
             </div>
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
                 <a asp-controller="Comments" asp-action="Create" asp-route-id="@Model.Animals.Id">Add Comment</a>
             </div>
-    </body>
+</body>
 </html>

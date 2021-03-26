@@ -8,9 +8,6 @@
     <title>Edit</title>
 </head>
 <body>
-    <img style="position: fixed; left: 0; top: 8%" src="https://wordpress.techgasp.com/wp-content/uploads/2013/07/screenshot-65.png" alt="AD" />
-    <img style="position: fixed; right: 0; top: 8%" src="https://wordpress.techgasp.com/wp-content/uploads/2013/07/screenshot-1.png" alt="AD" />
-
     <h4>Edit</h4>
     <hr />
     <div class="row">
@@ -63,6 +60,7 @@
                     <input asp-for="Animals.DateTime" class="form-control" />
                     <span asp-validation-for="Animals.DateTime" class="text-danger"></span>
                 </div>
+                <input type="hidden" asp-for="Animals.UserId" />
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-primary" />
                 </div>

@@ -24,9 +24,17 @@ namespace AS.Web.Controllers
             this.userManager = userMrg;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await aSDbContext.ASComments.ToListAsync());
+            var comments = this.aSDbContext.ASComments.Select(comment => new CommentsIndexViewModel
+            {
+                Id = comment.Id,
+                Text = comment.Text,
+                DateTime = comment.DateTime,
+                Email = comment.user.Email
+                
+            }).ToList();
+            return this.View(comments);
         }
         [HttpGet("/Comments/{Id}/Create")]
         public IActionResult Create(string id)
@@ -44,7 +52,7 @@ namespace AS.Web.Controllers
                 comments.AnimalPostId = this.RouteData.Values["Id"].ToString();
                 aSDbContext.Add(comments);
                 await aSDbContext.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return this.Redirect($"/Comments/{comments.AnimalPostId}");
             }
             return this.View(comments);
         }
@@ -72,7 +80,7 @@ namespace AS.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(string id, [Bind("Id,DateTime,Text,UserId,AnimalPostId")] ASComments comments)
         {
-
+            
             if (id != comments.Id)
             {
                 return NotFound();
@@ -96,7 +104,7 @@ namespace AS.Web.Controllers
                         throw new Exception("");
                     }
                 }
-                return this.RedirectToAction(nameof(Index));
+                return this.Redirect($"/Comments/{comments.AnimalPostId}");
             }
             return View(comments);
         }
@@ -123,11 +131,25 @@ namespace AS.Web.Controllers
             var comments = await aSDbContext.ASComments.FindAsync(id);
             aSDbContext.ASComments.Remove(comments);
             await aSDbContext.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return this.Redirect($"/Comments/{comments.AnimalPostId}");
         }
         private bool CommentExists(string id)
         {
             return aSDbContext.ASComments.Any(c => c.Id == id);
+        }
+        [HttpGet("/Comments/{Id}")]
+        public IActionResult PostComments(string id)
+        {
+            
+            var comments = this.aSDbContext.ASComments.Where(x => x.AnimalPostId == id).Select(comment => new CommentsIndexViewModel
+            {
+                Id = comment.Id,
+                Text = comment.Text,
+                DateTime = comment.DateTime,
+                Email = comment.user.Email
+
+            }).ToList();
+            return this.View(comments);
         }
     }
 }
