@@ -84,15 +84,19 @@ namespace AS.Web.Controllers
             };
             return this.View(viewmodel);
         }
-        [Authorize(Roles = "Admin")]
         //Get Animals/Edit/Id
         public async Task<IActionResult> Edit(string id)
         {
+
             if (id == null)
             {
                 return NotFound();
             }
 
+            if (!await IsAuthorized(id))
+            {
+                return Unauthorized();
+            }
             var animal = await aSDbContext.ASAnimals.FindAsync(id);
             if (animal == null)
             {
@@ -104,16 +108,19 @@ namespace AS.Web.Controllers
             };
             return this.View(viewModel);
         }
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(string id, [Bind("Id,AnimalType,Name,Age,Color,ImageURL,Sex,Status,Location,DateTime,UserId")] ASAnimals animals)
         {
-            
+
             if (id != animals.Id)
             {
                 return NotFound();
             }
 
+            if (!await IsAuthorized(id))
+            {
+                return Unauthorized();
+            }
             if (ModelState.IsValid)
             {              
                 try
@@ -136,14 +143,16 @@ namespace AS.Web.Controllers
             }
             return View(animals);
         }
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
+            if (!await IsAuthorized(id))
+            {
+                return Unauthorized();
+            }
             var animal = await aSDbContext.ASAnimals
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (animal == null)
@@ -153,10 +162,13 @@ namespace AS.Web.Controllers
 
             return View(animal);
         }
-        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteAnimal(string id)
         {
+            if (!await IsAuthorized(id))
+            {
+                return Unauthorized();
+            }
             var animal = await aSDbContext.ASAnimals.Include(m => m.Comments).FirstOrDefaultAsync(m => m.Id == id);
             aSDbContext.ASAnimals.Remove(animal);
             foreach (var comment in animal.Comments)

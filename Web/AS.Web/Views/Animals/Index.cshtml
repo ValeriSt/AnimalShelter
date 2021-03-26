@@ -48,6 +48,7 @@
                                     
                                     @if (item.IsAuthorized)
                                     {
+                                        <a style="position: absolute; right: 15%; bottom: 3%" class="button" s asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                                         <a style="position: absolute; right: 1%; bottom: 3%" class="button" s asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                                     }
 

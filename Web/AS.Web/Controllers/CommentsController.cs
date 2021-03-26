@@ -63,7 +63,10 @@ namespace AS.Web.Controllers
             {
                 return NotFound();
             }
-
+            if (!await IsAuthorized(id))
+            {
+                return Unauthorized();
+            }
             var comment = await aSDbContext.ASComments.FindAsync(id);
             if (comment == null)
             {
@@ -76,16 +79,17 @@ namespace AS.Web.Controllers
             return this.View(viewModel);
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Edit(string id, [Bind("Id,DateTime,Text,UserId,AnimalPostId")] ASComments comments)
         {
-            
             if (id != comments.Id)
             {
                 return NotFound();
             }
-
+            if (!await IsAuthorized(id))
+            {
+                return Unauthorized();
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -108,9 +112,12 @@ namespace AS.Web.Controllers
             }
             return View(comments);
         }
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string id)
         {
+            if (!await IsAuthorized(id))
+            {
+                return Unauthorized();
+            }
             if (id == null)
             {
                 return NotFound();
@@ -124,10 +131,13 @@ namespace AS.Web.Controllers
             }
             return View(comments);
         }
-        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteComment(string id)
         {
+            if (!await IsAuthorized(id))
+            {
+                return Unauthorized();
+            }
             var comments = await aSDbContext.ASComments.FindAsync(id);
             aSDbContext.ASComments.Remove(comments);
             await aSDbContext.SaveChangesAsync();
