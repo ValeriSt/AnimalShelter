@@ -143,15 +143,21 @@ namespace AS.Web.Controllers
             {
                 return NotFound();
             }
+
             return View(animal);
         }
         [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var animal = await aSDbContext.ASAnimals.FindAsync(id);
+            var animal = await aSDbContext.ASAnimals.Include(m => m.Comments).FirstOrDefaultAsync(m => m.Id == id);
             aSDbContext.ASAnimals.Remove(animal);
+            foreach (var comment in animal.Comments)
+            {
+                aSDbContext.ASComments.Remove(comment);
+            }
             await aSDbContext.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
         private bool AnimalExists(string id)
