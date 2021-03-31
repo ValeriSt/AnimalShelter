@@ -11,6 +11,7 @@ namespace AS.Data.Models
         public string Address { get; set; }
         public uint Age { get; set; }
         public List<ASAnimals> Animals { get; set; }
+        public List<ASEvents> Events { get; set; }
         public List<ASUserEvents> UserEvents { get; set; }
         public List<ASComments> Comments { get; set; }
 

@@ -10,6 +10,9 @@ namespace AS.Data.Models
         public string Location { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
-        public List<ASUserEvents> UserEvents { get; set; }
+        public DateTime DateTime { get; set; }
+        public string UserId { get; set; }
+        public ASUser User { get; set; }
+        public List<ASUserEvents> GoingUsers { get; set; } = new List<ASUserEvents>();
     }
 }
