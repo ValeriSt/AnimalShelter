@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AS.Data.Migrations
 {
     [DbContext(typeof(ASDbContext))]
-    [Migration("20210330190850_Dick")]
-    partial class Dick
+    [Migration("20210401162901_EventUsers")]
+    partial class EventUsers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

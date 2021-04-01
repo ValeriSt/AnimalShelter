@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AS.Data.Migrations
 {
-    public partial class Dick : Migration
+    public partial class EventUsers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
