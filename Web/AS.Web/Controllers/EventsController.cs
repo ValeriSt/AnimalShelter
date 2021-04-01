@@ -22,8 +22,8 @@ namespace AS.Web.Controllers
             this.aSDbContext = aSDbContext;
             this.userManager = userMrg;
         }
-
-        public IActionResult Index()
+        
+        public IActionResult Index(string sorting = null)
         {
             var animalEvents = this.aSDbContext.ASEvents.Include(x => x.GoingUsers).Select(events => new EventVM
             {
@@ -38,6 +38,15 @@ namespace AS.Web.Controllers
             foreach (var animalEvent in animalEvents)
             {
                 animalEvent.IsSubscribed = animalEvent.GoingUsers.Any(x => x.UserId == userManager.GetUserId(HttpContext.User));
+            }
+            switch (sorting)
+            {
+                case "Most Subscribers":
+                    animalEvents = animalEvents.OrderByDescending(x => x.GoingUsers.Count).ToList();
+                    break;
+                case "Least Subscribers":
+                    animalEvents = animalEvents.OrderBy(x => x.GoingUsers.Count).ToList();
+                    break;
             }
             return this.View(animalEvents);
         }
