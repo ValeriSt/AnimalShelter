@@ -23,9 +23,9 @@ namespace AS.Web.Controllers
             this.userManager = userMrg;
         }
         
-        public IActionResult Index(string sorting = null)
+        public async Task<IActionResult> Index(string sorting = null)
         {
-            var animalEvents = this.aSDbContext.ASEvents.Include(x => x.GoingUsers).Select(events => new EventVM
+            var animalEvents = this.aSDbContext.ASEvents.Include(x => x.GoingUsers).Select(events => new EventIndexViewModel
             {
                 Id = events.Id,
                 Location = events.Location,
@@ -36,10 +36,13 @@ namespace AS.Web.Controllers
                 Email = events.User.Email,
                 GoingUsers = events.GoingUsers
             }).ToList();
+
             foreach (var animalEvent in animalEvents)
             {
+                animalEvent.IsAuthorized = await this.IsAuthorized(animalEvent.Id);
                 animalEvent.IsSubscribed = animalEvent.GoingUsers.Any(x => x.UserId == userManager.GetUserId(HttpContext.User));
             }
+
             switch (sorting)
             {
                 case "Most Subscribers":
@@ -84,7 +87,100 @@ namespace AS.Web.Controllers
             }
             return this.View(events);
         }
-        public async Task<IActionResult> Subscribe(string id) 
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            if (!await IsAuthorized(id))
+            {
+                return Unauthorized();
+            }
+            var events = await aSDbContext.ASEvents.FindAsync(id);
+            if (events == null)
+            {
+                return NotFound();
+            }
+            var viewModel = new EventVM
+            {
+                 Events = events
+            };
+            return this.View(viewModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, [Bind("Id,Location,Description,ImageUrl,DateTime,UserId")] ASEvents events)
+        {
+            if (id != events.Id)
+            {
+                return NotFound();
+            }
+
+            if (!await IsAuthorized(id))
+            {
+                return Unauthorized();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var dbEvents = await aSDbContext.ASEvents.FindAsync(id);
+                    aSDbContext.Entry(dbEvents).CurrentValues.SetValues(events);
+                    await aSDbContext.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!EventExists(events.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw new Exception("");
+                    }
+                }
+                return this.RedirectToAction(nameof(Index));
+            }
+            return View(events);
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (!await IsAuthorized(id))
+            {
+                return Unauthorized();
+            }
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var events = await aSDbContext.ASEvents
+                .FirstOrDefaultAsync(c => c.Id == id);
+            if (events == null)
+            {
+                return NotFound();
+            }
+            return View(events);
+        }
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteEvent(string id)
+        {
+            if (!await IsAuthorized(id))
+            {
+                return Unauthorized();
+            }
+            var events = await aSDbContext.ASEvents.FindAsync(id);
+            aSDbContext.ASEvents.Remove(events);
+            await aSDbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        private bool EventExists(string id)
+        {
+            return aSDbContext.ASEvents.Any(c => c.Id == id);
+        }
+        public async Task<IActionResult> Subscribe(string id)
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
             var userEvent = await aSDbContext.ASEvents.FindAsync(id);
