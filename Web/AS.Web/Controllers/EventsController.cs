@@ -78,7 +78,18 @@ namespace AS.Web.Controllers
 
         public async Task<IActionResult> UnSubscribe(string id)
         {
-            return null;
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            var userEvent = await aSDbContext.ASEvents.Include(x => x.GoingUsers).FirstOrDefaultAsync(x => x.Id == id);
+
+            userEvent.GoingUsers.RemoveAll(x => x.UserId == user.Id);
+            var entry = this.aSDbContext.Entry(userEvent);
+            if (entry.State == EntityState.Detached)
+            {
+                this.aSDbContext.Attach(userEvent);
+            }
+            entry.State = EntityState.Modified;
+            await aSDbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
