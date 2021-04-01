@@ -14,7 +14,9 @@ namespace AS.Web.Models.ViewModels.EventViewModels
         public string ImageUrl { get; set; }
         public DateTime DateTime { get; set; }
         public string UserId { get; set; }
+        public string Email { get; set; }
         public List<ASUserEvents> GoingUsers { get; set; } = new List<ASUserEvents>();
         public bool IsSubscribed { get; set; }
+        public bool IsAuthorized { get; set; }
     }
 }

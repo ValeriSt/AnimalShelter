@@ -33,6 +33,7 @@ namespace AS.Web.Controllers
                 ImageUrl = events.ImageUrl,
                 DateTime = events.DateTime,
                 UserId = events.UserId,
+                Email = events.User.Email,
                 GoingUsers = events.GoingUsers
             }).ToList();
             foreach (var animalEvent in animalEvents)
@@ -46,6 +47,18 @@ namespace AS.Web.Controllers
                     break;
                 case "Least Subscribers":
                     animalEvents = animalEvents.OrderBy(x => x.GoingUsers.Count).ToList();
+                    break;
+                case "Newest":
+                    animalEvents = animalEvents.OrderByDescending(x => x.DateTime).ToList();
+                    break;
+                case "Oldest":
+                    animalEvents = animalEvents.OrderBy(x => x.DateTime).ToList();
+                    break;
+                case "First Subscribed":
+                    animalEvents = animalEvents.OrderByDescending(x => x.IsSubscribed).ToList();
+                    break;
+                case "Last Subscribed":
+                    animalEvents = animalEvents.OrderBy(x => x.IsSubscribed).ToList();
                     break;
             }
             return this.View(animalEvents);
@@ -99,6 +112,12 @@ namespace AS.Web.Controllers
             entry.State = EntityState.Modified;
             await aSDbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+        public async Task<bool> IsAuthorized(string eventId)
+        {
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            var events = await aSDbContext.ASEvents.FindAsync(eventId);
+            return await userManager.IsInRoleAsync(user, "Admin") || events.UserId == user.Id;
         }
     }
 }
