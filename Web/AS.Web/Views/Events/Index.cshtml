@@ -1,5 +1,4 @@
-﻿@model IEnumerable<AS.Data.Models.ASEvents>
-
+﻿@model IEnumerable<EventVM>
 @{
     ViewData["Title"] = "Index";
 }
@@ -49,9 +48,17 @@
             </dd>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => item.GoingUsers.Count)
-                </dd>
+            </dd>
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                <a asp-controller="Events" asp-action="SignUp" asp-route-id="@item.Id">Sign Up</a>
+                @if (!item.IsSubscribed)
+                {
+                    <a asp-controller="Events" asp-action="Subscribe" asp-route-id="@item.Id">Subscribe</a>
+                }
+                else 
+                {
+                    <a asp-controller="Events" asp-action="UnSubscribe" asp-route-id="@item.Id">UnSubscribe</a> 
+                }
+                
             </div>
         }
     </dl>

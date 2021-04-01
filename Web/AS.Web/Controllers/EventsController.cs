@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AS.Data;
 using AS.Data.Models;
+using AS.Web.Models.ViewModels.EventViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,7 @@ namespace AS.Web.Controllers
 
         public IActionResult Index()
         {
-            var animalEvents = this.aSDbContext.ASEvents.Include(x => x.GoingUsers).Select(events => new ASEvents
+            var animalEvents = this.aSDbContext.ASEvents.Include(x => x.GoingUsers).Select(events => new EventVM
             {
                 Id = events.Id,
                 Location = events.Location,
@@ -34,6 +35,10 @@ namespace AS.Web.Controllers
                 UserId = events.UserId,
                 GoingUsers = events.GoingUsers
             }).ToList();
+            foreach (var animalEvent in animalEvents)
+            {
+                animalEvent.IsSubscribed = animalEvent.GoingUsers.Any(x => x.UserId == userManager.GetUserId(HttpContext.User));
+            }
             return this.View(animalEvents);
         }
 
@@ -57,7 +62,7 @@ namespace AS.Web.Controllers
             }
             return this.View(events);
         }
-        public async Task<IActionResult> SignUp (string id) 
+        public async Task<IActionResult> Subscribe(string id) 
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
             var userEvent = await aSDbContext.ASEvents.FindAsync(id);
@@ -71,8 +76,9 @@ namespace AS.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //kamen e gei mejdu drugoto, ama ne mu kazvai VS pls
-        //i agree!
-        //it'll be our little secret
+        public async Task<IActionResult> UnSubscribe(string id)
+        {
+            return null;
+        }
     }
 }
