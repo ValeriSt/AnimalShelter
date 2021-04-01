@@ -6,6 +6,7 @@ using AS.Data;
 using AS.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AS.Web.Controllers
 {
@@ -23,15 +24,15 @@ namespace AS.Web.Controllers
 
         public IActionResult Index()
         {
-            var animalEvents = this.aSDbContext.ASEvents.Select(events => new ASEvents
+            var animalEvents = this.aSDbContext.ASEvents.Include(x => x.GoingUsers).Select(events => new ASEvents
             {
                 Id = events.Id,
                 Location = events.Location,
                 Description = events.Description,
                 ImageUrl = events.ImageUrl,
                 DateTime = events.DateTime,
-                UserId = events.UserId
-
+                UserId = events.UserId,
+                GoingUsers = events.GoingUsers
             }).ToList();
             return this.View(animalEvents);
         }
@@ -65,10 +66,13 @@ namespace AS.Web.Controllers
                 EventsId = userEvent.Id,
                 UserId = user.Id
             };
-            return null;
+            userEvent.GoingUsers.Add(EventUser);
+            await aSDbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         //kamen e gei mejdu drugoto, ama ne mu kazvai VS pls
+        //i agree!
         //it'll be our little secret
     }
 }
