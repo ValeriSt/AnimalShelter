@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AS.Data.Migrations
 {
     [DbContext(typeof(ASDbContext))]
-    [Migration("20210401162901_EventUsers")]
+    [Migration("20210402192248_EventUsers")]
     partial class EventUsers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
