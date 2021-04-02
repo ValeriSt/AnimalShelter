@@ -125,7 +125,8 @@ namespace AS.Web.Controllers
             {              
                 try
                 {
-                    aSDbContext.Update(animals);
+                    var dbAnimals = await aSDbContext.ASAnimals.FindAsync(id);
+                    aSDbContext.Entry(dbAnimals).CurrentValues.SetValues(animals);
                     await aSDbContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
