@@ -2,7 +2,64 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<style>
+    h1{
+        color: black;
+    }
+
+    .rectangle {
+        position: absolute;
+        height: auto;
+        width: 60%;
+        top: 20%;
+        left: 20%;
+        background-color: white;
+        z-index: -1;
+        border: 1px solid;
+        padding: 10px;
+        box-shadow: 5px 5px #888888;
+    }
+
+        .rectangle p {
+            padding: 10%;
+        }
+
+    .black {
+        color: black;
+    }
+
+    .welcom_massage {
+        color: white;
+        border-bottom: 3px solid firebrick;
+        font-family: Ariel, Helvetica, sans-serif;
+        width: 78%;
+        margin-left: 11%;
+        color: black;
+        padding-top: 10%;
+    }
+</style>
+
+<body>
+
+
+    <div class="text-center">
+        <h1 style="text-align: center;" class="display-4">Animals Shelter</h1>
+    </div>
+
+    <div class="rectangle">
+
+        <h2 class="welcom_massage">
+            WELCOME TO OUR WEB PAGE!
+        </h2>
+        <p class="black">
+            There are real live people standing behind everything we manage to achieve. For every rescued, every healed, every rehomed little pet, there are kind-hearted people who have given their best to succeed.
+
+            Our cause has many supporters. Many opponents as well. We thank you for being here. Because nothing would work if it was not for each of us coming to a point where we realise: I want to help and I will. Here. Today. Me.
+
+            The Bulgarian reality will be as we make it. We have created Animal Rescue Sofia to work on the humane and proffecional solution to the stray dog population in the country.
+
+            We are here to help. We are here to save lives.
+        </p>
+    </div>
+
+</body>
