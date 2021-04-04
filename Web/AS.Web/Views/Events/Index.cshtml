@@ -3,11 +3,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h4>Events</h4>
+<hr />
 <div>
-    <h4>ASEvents</h4>
-    <hr />
+
     <p>
         <a asp-action="Create">Create New</a>
     </p>
@@ -31,74 +30,74 @@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
         </dt>
-        <dt class="col-sm-2">
-            <form asp-action="Index" method="get">
-                <select name="sorting">
-                    <option>
-                        Most Subscribers
-                    </option>
-                    <option>
-                        Least Subscribers
-                    </option>
-                    <option>
-                        Newest
-                    </option>
-                    <option>
-                        Oldest
-                    </option>
-                    <option>
-                        First Subscribed
-                    </option>
-                    <option>
-                        Last Subscribed
-                    </option>
-                </select>
-                <input type="submit" value="Sort">
-            </form>
-        </dt>
-        @foreach (var item in Model)
-        {
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => item.Location)
-            </dd>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => item.Description)
-            </dd>
-            <dd class="col-sm-10">
-                <img src="@item.ImageUrl" width="150" height="150" />
-            </dd>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => item.DateTime)
-            </dd>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => item.Email)
-            </dd>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => item.GoingUsers.Count)
-            </dd>
-            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                @if (!item.IsOwned)
+    <dt class="col-sm-2">
+        <form asp-action="Index" method="get">
+            <select name="sorting">
+                <option>
+                    Most Subscribers
+                </option>
+                <option>
+                    Least Subscribers
+                </option>
+                <option>
+                    Newest
+                </option>
+                <option>
+                    Oldest
+                </option>
+                <option>
+                    First Subscribed
+                </option>
+                <option>
+                    Last Subscribed
+                </option>
+            </select>
+            <input type="submit" value="Sort">
+        </form>
+    </dt>
+    @foreach (var item in Model)
+    {
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => item.Location)
+        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => item.Description)
+        </dd>
+        <dd class="col-sm-10">
+            <img src="@item.ImageUrl" width="150" height="150" />
+        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => item.DateTime)
+        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => item.Email)
+        </dd>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => item.GoingUsers.Count)
+        </dd>
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+            @if (!item.IsOwned)
+            {
+                @if (!item.IsSubscribed)
                 {
-                    @if (!item.IsSubscribed)
-                    {
-                        <a asp-controller="Events" asp-action="Subscribe" asp-route-id="@item.Id">Subscribe</a>
-                    }
-                    else
-                    {
-                        <a asp-controller="Events" asp-action="UnSubscribe" asp-route-id="@item.Id">UnSubscribe</a>
-                    }
+                    <a asp-controller="Events" asp-action="Subscribe" asp-route-id="@item.Id">Subscribe</a>
                 }
-                @if (item.IsAdmin)
+                else
                 {
-                    @:|
+                    <a asp-controller="Events" asp-action="UnSubscribe" asp-route-id="@item.Id">UnSubscribe</a>
                 }
-                @if (item.IsOwned || item.IsAdmin)
-                {
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    @:|
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete </a>
-                }
-            </div>
-        }
+            }
+            @if (item.IsAdmin)
+            {
+                @:|
+            }
+            @if (item.IsOwned || item.IsAdmin)
+            {
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                @:|
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete </a>
+            }
+        </div>
+    }
     </dl>
 </div>
