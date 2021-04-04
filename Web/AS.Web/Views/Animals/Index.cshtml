@@ -34,7 +34,7 @@
                 <div class="card">
                     <div class="card__side card__side--front-1">
                         <div class="card__details">
-                            <div class="btn-toolbar p-2 w-100">
+                            <div class="d-flex p-2 w-100">
                                 <div>
                                     <img src="@item.ImageUrl" width="150" height="150" />
                                     <div style=" vertical-align: middle; display: table-cell; text-align: justify;">
@@ -43,7 +43,7 @@
                                         <p>Location: @item.Location</p>
                                     </div>
                                 </div>
-                                <div class="btn-toolbar flex-grow-1 align-items-end justify-content-end">
+                                <div class="d-flex flex-grow-1 align-items-end justify-content-end">
                                     <a class="btn btn-info m-1" asp-controller="Animals" asp-action="Details" asp-route-id="@item.Id">Details</a>
 
                                     @if (item.IsAuthorized)

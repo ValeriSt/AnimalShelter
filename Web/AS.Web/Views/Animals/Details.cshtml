@@ -1,52 +1,39 @@
 ﻿@model AnimalsVM
-    <!DOCTYPE html>
+<!DOCTYPE html>
 
-    <html>
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>Details</title>
-    </head>
-    <body>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div class="m-auto p-2 w-75">
+        <h4>@Model.Animals.Name</h4>
+        <hr />
+        <dl class="row">
+            <ul>
+                <img src="@Model.Animals.ImageURL" width="300" height="300" />
+                <li>Type: @Model.Animals.AnimalType</li>
+                <li>Name: @Model.Animals.Name</li>
+                <li>Age: @Model.Animals.Age</li>
+                <li>Color: @Model.Animals.Color</li>
+                <li>Sex: @Model.Animals.Sex</li>
+                <li>Status: @Model.Animals.Status</li>
+                <li>Location: @Model.Animals.Location</li>
+                <li>Date & Time: @Model.Animals.DateTime</li>
+                @*<li>Created by: @Model.Animals.User.Email</li>*@
+            </ul>
+        </dl>
+    </div>
+    <div class="d-flex m-auto p-2 w-75">
         <div>
-            <h4>@Model.Animals.Name</h4>
-            <hr />
-            <dl class="row">
-                <ul>
-                    <img src="@Model.Animals.ImageURL" width="300" height="300" />
-                    <li>Type: @Model.Animals.AnimalType</li>
-                    <li>Name: @Model.Animals.Name</li>
-                    <li>Age: @Model.Animals.Age</li>
-                    <li>Color: @Model.Animals.Color</li>
-                    <li>Sex: @Model.Animals.Sex</li>
-                    <li>Status: @Model.Animals.Status</li>
-                    <li>Location: @Model.Animals.Location</li>
-                    <li>Date & Time: @Model.Animals.DateTime</li>
-                    @*<li>Created by: @Model.Animals.User.Email</li>*@
-                </ul>
-            </dl>
-            @*<dl class="Comments">
-                <ul>
-                    <li>Comments:</li>
-                    @foreach(var comment in Model.Animals.Comments)
-                    {
-                        <li>@comment.Text</li>
-                        <li>@comment.DateTime</li>
-                    }
-                </ul>
-            </dl>*@
+            <a asp-action="Index" class="btn btn-dark">Back to List</a>
         </div>
-        <div>
-            @*@if (Model.Animals.IsAuthorized)
-            {*@
-                
-                                                                               
-        <a asp-action="Index">Back to List</a>
 
-        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-            <a asp-controller="Comments" asp-action="PostComments" asp-route-id="@Model.Animals.Id">View Comments</a>
+        <div class="collapse flex-grow-1 flex-column d-flex align-items-end justify-content-end" id="navbarNav">
+            <a asp-controller="Comments" class="btn btn-outline-info" asp-action="PostComments" asp-route-id="@Model.Animals.Id">View Comments</a>
+            <a asp-controller="Comments" class="btn btn-outline-success" asp-action="Create" asp-route-id="@Model.Animals.Id">Add Comment</a>
         </div>
-        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-            <a asp-controller="Comments" asp-action="Create" asp-route-id="@Model.Animals.Id">Add Comment</a>
-        </div>
+    </div>
 </body>
 </html>

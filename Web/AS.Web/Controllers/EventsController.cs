@@ -95,7 +95,7 @@ namespace AS.Web.Controllers
                 return NotFound();
             }
 
-            if (!await IsOwner(id) || !await IsAdmin())
+            if (!await IsOwner(id) && !await IsAdmin())
             {
                 return Unauthorized();
             }
@@ -118,7 +118,7 @@ namespace AS.Web.Controllers
                 return NotFound();
             }
 
-            if (!await IsOwner(id) || !await IsAdmin())
+            if (!await IsOwner(id) && !await IsAdmin())
             {
                 return Unauthorized();
             }
@@ -145,10 +145,10 @@ namespace AS.Web.Controllers
             }
             return View(events);
         }
-
+        
         public async Task<IActionResult> Delete(string id)
         {
-            if (!await IsOwner(id) || !await IsAdmin())
+            if (!await IsOwner(id) && !await IsAdmin())
             {
                 return Unauthorized();
             }
@@ -168,7 +168,7 @@ namespace AS.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteEvent(string id)
         {
-            if (!await IsOwner(id) || !await IsAdmin())
+            if (!await IsOwner(id) && !await IsAdmin())
             {
                 return Unauthorized();
             }
