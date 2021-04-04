@@ -1,18 +1,23 @@
-﻿using System;
+﻿using AS.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AS.Data.Models
+namespace AS.Web.Models.ViewModels.EventViewModels
 {
-    public class ASEvents : BaseEntity
+    public class EventIndexViewModel
     {
+        public string Id { get; set; }
         public string Location { get; set; }
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public DateTime DateTime { get; set; }
         public string UserId { get; set; }
-        public ASUser User { get; set; }
+        public string Email { get; set; }
         public List<ASUserEvents> GoingUsers { get; set; } = new List<ASUserEvents>();
+        public bool IsSubscribed { get; set; }
+        public bool IsOwned { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

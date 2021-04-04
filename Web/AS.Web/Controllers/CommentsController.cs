@@ -94,7 +94,8 @@ namespace AS.Web.Controllers
             {
                 try
                 {
-                    aSDbContext.Update(comments);
+                    var dbComments = await aSDbContext.ASComments.FindAsync(id);
+                    aSDbContext.Entry(dbComments).CurrentValues.SetValues(comments);
                     await aSDbContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

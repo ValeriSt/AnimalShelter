@@ -45,6 +45,21 @@ namespace AS.Data
                 .HasMany(uc => uc.Animals)
                 .WithOne(c => c.User);
 
+            modelBuilder.Entity<ASEvents>()
+                .HasOne(ac => ac.User)
+                .WithMany(a => a.Events)
+                .HasForeignKey(ac => ac.UserId);
+            modelBuilder.Entity<ASUser>()
+                .HasMany(uc => uc.Events)
+                .WithOne(c => c.User);
+
+            //modelBuilder.Entity<ASEvents>()
+            //    .HasOne(ac => ac.GoingUsers)
+            //    .WithMany(a => a.Events)
+            //    .HasForeignKey(ac => ac.GoingUsersId);
+            //modelBuilder.Entity<ASUser>()
+            //    .HasMany(uc => uc.Events)
+            //    .WithOne(c => c.GoingUsers);
             modelBuilder.Entity<ASUserEvents>().HasKey(ue => new { ue.UserId, ue.EventsId });
             modelBuilder.Entity<ASUserEvents>()
                .HasOne(ue => ue.User)
@@ -52,7 +67,7 @@ namespace AS.Data
                .HasForeignKey(ue => ue.UserId);
             modelBuilder.Entity<ASUserEvents>()
                 .HasOne(ue => ue.Event)
-                .WithMany(e => e.UserEvents)
+                .WithMany(e => e.GoingUsers)
                 .HasForeignKey(ue => ue.EventsId);
 
             //modelBuilder.Entity<ASComments>().HasKey(uc => new { uc.UserId, uc.Id });
