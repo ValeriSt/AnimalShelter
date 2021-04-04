@@ -39,7 +39,8 @@ namespace AS.Web.Controllers
 
             foreach (var animalEvent in animalEvents)
             {
-                animalEvent.IsAuthorized = await this.IsAuthorized(animalEvent.Id);
+                animalEvent.IsOwned = await this.IsOwner(animalEvent.Id);
+                animalEvent.IsAdmin = await this.IsAdmin();
                 animalEvent.IsSubscribed = animalEvent.GoingUsers.Any(x => x.UserId == userManager.GetUserId(HttpContext.User));
             }
 
@@ -94,7 +95,7 @@ namespace AS.Web.Controllers
                 return NotFound();
             }
 
-            if (!await IsAuthorized(id))
+            if (!await IsOwner(id) || !await IsAdmin())
             {
                 return Unauthorized();
             }
@@ -117,7 +118,7 @@ namespace AS.Web.Controllers
                 return NotFound();
             }
 
-            if (!await IsAuthorized(id))
+            if (!await IsOwner(id) || !await IsAdmin())
             {
                 return Unauthorized();
             }
@@ -147,7 +148,7 @@ namespace AS.Web.Controllers
 
         public async Task<IActionResult> Delete(string id)
         {
-            if (!await IsAuthorized(id))
+            if (!await IsOwner(id) || !await IsAdmin())
             {
                 return Unauthorized();
             }
@@ -167,7 +168,7 @@ namespace AS.Web.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteEvent(string id)
         {
-            if (!await IsAuthorized(id))
+            if (!await IsOwner(id) || !await IsAdmin())
             {
                 return Unauthorized();
             }
@@ -209,11 +210,16 @@ namespace AS.Web.Controllers
             await aSDbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        public async Task<bool> IsAuthorized(string eventId)
+        public async Task<bool> IsOwner(string eventId)
         {
             var user = await userManager.GetUserAsync(HttpContext.User);
             var events = await aSDbContext.ASEvents.FindAsync(eventId);
-            return await userManager.IsInRoleAsync(user, "Admin") || events.UserId == user.Id;
+            return events.UserId == user.Id;
+        }
+        public async Task<bool> IsAdmin()
+        {
+            var user = await userManager.GetUserAsync(HttpContext.User);
+            return await userManager.IsInRoleAsync(user, "Admin");
         }
     }
 }

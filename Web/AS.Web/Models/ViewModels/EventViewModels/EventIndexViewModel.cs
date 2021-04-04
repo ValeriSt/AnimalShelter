@@ -17,6 +17,7 @@ namespace AS.Web.Models.ViewModels.EventViewModels
         public string Email { get; set; }
         public List<ASUserEvents> GoingUsers { get; set; } = new List<ASUserEvents>();
         public bool IsSubscribed { get; set; }
-        public bool IsAuthorized { get; set; }
+        public bool IsOwned { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

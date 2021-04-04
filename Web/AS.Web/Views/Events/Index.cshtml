@@ -77,7 +77,7 @@
                 @Html.DisplayFor(model => item.GoingUsers.Count)
             </dd>
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                @if (!item.IsAuthorized)
+                @if (!item.IsOwned)
                 {
                     @if (!item.IsSubscribed)
                     {
@@ -88,7 +88,11 @@
                         <a asp-controller="Events" asp-action="UnSubscribe" asp-route-id="@item.Id">UnSubscribe</a>
                     }
                 }
-                else
+                @if (item.IsAdmin)
+                {
+                    @:|
+                }
+                @if (item.IsOwned || item.IsAdmin)
                 {
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                     @:|
