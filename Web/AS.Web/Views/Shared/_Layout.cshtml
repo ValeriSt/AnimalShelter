@@ -6,11 +6,43 @@
     <title>@ViewData["Title"] - AS.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <style>
+        h1, h2, h3, h4, h5, h6, p, a {
+            color: black;
+        }
+        .container {
+            color: black;
+        }
+
+        .footer {
+            background-color: white;
+            border: 1%;
+            border-color: floralwhite;
+            position: fixed;
+            bottom: 0;
+
+        }
+
+        nav {
+            width: 60%;
+            margin-left: 20%;
+        }
+
+
+    body { background-image: url("https://i.pinimg.com/originals/8e/b6/10/8eb610a06195f2872b1cbcbab1bd11c6.png");
+           background-repeat: no-repeat;
+           background-attachment: fixed;
+           background-position: right;
+           background-color: white; 
+    }
+    </style>
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
+            <div class="container" >
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AnimalShelter</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +94,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - AS.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy;<a asp-area="" asp-controller="Home" asp-action="Privacy">Rules</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

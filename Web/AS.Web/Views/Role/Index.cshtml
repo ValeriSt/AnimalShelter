@@ -1,6 +1,14 @@
 ﻿@model IEnumerable<IdentityRole>
 
-<h1 class="bg-info text-white">All Roles</h1>
+    <style>
+          .table{
+              width: 80%;
+              margin-left: 10%;
+          }
+        
+    </style>
+<div class="table">
+<h1 style="padding: 2%;" class="bg-info text-white">All Roles</h1>
 <a asp-action="Create" class="btn btn-secondary">Create a Role</a>
 
 <table class="table table-sm table-bordered table-bordered">
@@ -22,3 +30,4 @@
         </tr>
     }
 </table>
+</div>

@@ -21,17 +21,16 @@
     </style>
 
 </head>
-<body>
+<body background="bg.png">
+
     <p>
-        <a style="margin-left: 1.5%;" class="button" asp-action="Create">Create New</a>
+        <a style="margin-left: 11.5%;" class="button" asp-action="Create">Create New</a>
     </p>
-    <img style="position: fixed; left: 0; top: 8%" src="https://wordpress.techgasp.com/wp-content/uploads/2013/07/screenshot-65.png" alt="AD" />
-    <img style="position: fixed; right: 0; top: 8%" src="https://wordpress.techgasp.com/wp-content/uploads/2013/07/screenshot-1.png" alt="AD" />
 
     <div class="row">
         @foreach (var item in Model)
         {
-            <div style="display: block; width:100%; padding: 2%;" class="col-1-of-3">
+            <div style="margin-left: 10%; display: block; width:80%; padding: 2%;" class="col-1-of-3">
                 <div class="card">
                     <div class="card__side card__side--front-1">
                         <div class="card__details">
