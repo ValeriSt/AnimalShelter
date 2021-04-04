@@ -2,7 +2,7 @@
 @model IEnumerable<AnimalsIndexViewModel>
 @{
     ViewData["Title"] = "View";
-    
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -23,36 +23,36 @@
 </head>
 <body background="bg.png">
 
-    <p>
-        <a style="margin-left: 11.5%;" class="button" asp-action="Create">Create New</a>
+    <p class="w-75 m-auto p-3">
+        <a class="btn btn-outline-success " asp-action="Create">Create New</a>
     </p>
 
     <div class="row">
         @foreach (var item in Model)
         {
-            <div style="margin-left: 10%; display: block; width:80%; padding: 2%;" class="col-1-of-3">
+            <div class="w-75 p-3 m-auto">
                 <div class="card">
                     <div class="card__side card__side--front-1">
                         <div class="card__details">
-
-                            <ul>
-                                <img src="@item.ImageUrl" width="150" height="150" />
-                                <div style=" vertical-align: middle; display: table-cell; text-align: justify;">
-                                    <p>Name: @item.Name</p>
-                                    <p>Status: @item.Status</p>
-                                    <p>Location: @item.Location</p>
+                            <div class="btn-toolbar p-2 w-100">
+                                <div>
+                                    <img src="@item.ImageUrl" width="150" height="150" />
+                                    <div style=" vertical-align: middle; display: table-cell; text-align: justify;">
+                                        <p>Name: @item.Name</p>
+                                        <p>Status: @item.Status</p>
+                                        <p>Location: @item.Location</p>
+                                    </div>
                                 </div>
-                                <a>
-                                    <a style="position: absolute; right: 8%; bottom: 3%" class="button" asp-controller="Animals" asp-action="Details" asp-route-id="@item.Id">Details</a>
-                                    
+                                <div class="btn-toolbar flex-grow-1 align-items-end justify-content-end">
+                                    <a class="btn btn-info m-1" asp-controller="Animals" asp-action="Details" asp-route-id="@item.Id">Details</a>
+
                                     @if (item.IsAuthorized)
                                     {
-                                        <a style="position: absolute; right: 15%; bottom: 3%" class="button" s asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                        <a style="position: absolute; right: 1%; bottom: 3%" class="button" s asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        <a class="btn btn-success m-1" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                        <a class="btn btn-danger m-1" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                                     }
-
-                                </a>
-                            </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
