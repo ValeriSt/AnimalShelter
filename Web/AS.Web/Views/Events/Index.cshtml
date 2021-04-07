@@ -14,7 +14,6 @@
         border: 1px solid;
         padding: 10px;
         box-shadow: 5px 5px #888888;
-        margin-top: 10%;
     }
 
     .reposition {
@@ -22,7 +21,9 @@
         width: 60%;
         left: 20%;
     }
-
+    body {
+        padding-bottom: 30%;
+    }
 
 </style>
 <div class="reposition">
@@ -60,7 +61,7 @@
 
 <div class="rectangle">
     <dl class="row">
-        <dt style="margin-left: 150px;" class="col-sm-2">
+        <dt style="margin-left: 200px;" class="col-sm-2">
             @Html.DisplayNameFor(model => model.Location)
         </dt>
 
@@ -77,10 +78,10 @@
 
         @foreach (var item in Model)
         {
-            <dd>
+            <dd class="col-sm-10">
                 <img src="@item.ImageUrl" width="150" height="150" />
             </dd>
-            <dd class="col-sm-2">
+            <dd style="margin-left: 200px;" class="col-sm-2">
                 @Html.DisplayFor(model => item.Location)
             </dd>
             <dd class="col-sm-2">
