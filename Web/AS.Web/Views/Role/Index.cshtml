@@ -9,14 +9,13 @@
     </style>
 <div class="table">
 <h1 style="padding: 2%;" class="bg-info text-white">All Roles</h1>
-<a asp-action="Create" class="btn btn-secondary">Create a Role</a>
+<a  asp-action="Create" class="btn btn-secondary">Create a Role</a>
 
 <table class="table table-sm table-bordered table-bordered">
-    <tr><th>ID</th><th>Name</th>@*<th>Users</th>*@<th>Update</th><th>Delete</th></tr>
+    <tr><th>Name</th>@*<th>Users</th>*@<th>Update</th><th>Delete</th></tr>
     @foreach (var role in Model)
     {
         <tr>
-            <td>@role.Id</td>
             <td>@role.Name</td>
             @*<td i-role="@role.NormalizedName"></td>*@
             <td><a class="btn btn-sm btn-primary" asp-action="Update" asp-route-id="@role.Id">Update</a></td>

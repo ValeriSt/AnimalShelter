@@ -18,46 +18,53 @@
             border-radius: 10px 10px;
             padding: 4px 8px;
         }
+        .rectangle {
+            position: absolute;
+            height: auto;
+            width: 60%;
+            top: 20%;
+            left: 20%;
+            background-color: white;
+            z-index: -1;
+            border: 1px solid;
+            padding: 10px;
+            box-shadow: 5px 5px #888888;
+        }
+
     </style>
 
 </head>
-<body background="bg.png">
-
-    <p class="w-75 m-auto p-3">
-        <a class="btn btn-outline-success " asp-action="Create">Create New</a>
-    </p>
-
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="w-75 p-3 m-auto">
-                <div class="card">
-                    <div class="card__side card__side--front-1">
-                        <div class="card__details">
-                            <div class="d-flex p-2 w-100">
-                                <div>
+<body>
+    <div class="rectangle">
+        <p class="w-75 m-auto p-3">
+            <a class="btn btn-outline-success " asp-action="Create">Create New</a>
+        </p>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="w-3 p-3 m-auto">
+                    <div class="card">
+                        <div class="card__side card__side--front-1">
+                            <div class="card__details">
                                     <img src="@item.ImageUrl" width="150" height="150" />
-                                    <div style=" vertical-align: middle; display: table-cell; text-align: justify;">
-                                        <p>Name: @item.Name</p>
-                                        <p>Status: @item.Status</p>
-                                        <p>Location: @item.Location</p>
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-grow-1 align-items-end justify-content-end">
-                                    <a class="btn btn-info m-1" asp-controller="Animals" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                                    <p>Name: @item.Name</p>
+                                    <p>Status: @item.Status</p>
+                                    <p>Location: @item.Location</p>
+                                    <div class="d-flex flex-grow-1 align-items-end justify-content-end">
+                                        <a class="btn btn-info m-1" asp-controller="Animals" asp-action="Details" asp-route-id="@item.Id">Details</a>
 
-                                    @if (item.IsAuthorized)
-                                    {
-                                        <a class="btn btn-success m-1" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                                        <a class="btn btn-danger m-1" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                                    }
-                                </div>
+                                        @if (item.IsAuthorized)
+                                        {
+                                            <a class="btn btn-success m-1" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                            <a class="btn btn-danger m-1" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        }
+                                    </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
 </body>
 </html>

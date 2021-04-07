@@ -3,13 +3,36 @@
 
 <html>
 <head>
+    <style>
+
+        .rectangle {
+            position: absolute;
+            height: auto;
+            width: 60%;
+            top: 20%;
+            left: 20%;
+            background-color: white;
+            z-index: -1;
+            border: 1px solid;
+            padding: 10px;
+            box-shadow: 5px 5px #888888;
+        }
+
+        .reposition {
+            position: absolute;
+            width: 60%;
+            left: 20%;
+        }
+    </style>
     <meta name="viewport" content="width=device-width" />
     <title>Details</title>
 </head>
 <body>
-    <div class="m-auto p-2 w-75">
-        <h4>@Model.Animals.Name</h4>
-        <hr />
+    <div class="reposition">
+            <h4>@Model.Animals.Name</h4>
+            <hr />
+    </div>
+    <div class="rectangle">
         <dl class="row">
             <ul>
                 <img src="@Model.Animals.ImageURL" width="300" height="300" />
@@ -24,16 +47,16 @@
                 @*<li>Created by: @Model.Animals.User.Email</li>*@
             </ul>
         </dl>
-    </div>
-    <div class="d-flex m-auto p-2 w-75">
-        <div>
-            <a asp-action="Index" class="btn btn-dark">Back to List</a>
-        </div>
+        <div class="d-flex m-auto p-2 w-75">
+            <div>
+                <a asp-action="Index" class="btn btn-dark">Back to List</a>
+            </div>
 
-        <div class="collapse flex-grow-1 flex-column d-flex align-items-end justify-content-end" id="navbarNav">
-            <a asp-controller="Comments" class="btn btn-outline-info" asp-action="PostComments" asp-route-id="@Model.Animals.Id">View Comments</a>
-            <a asp-controller="Comments" class="btn btn-outline-success" asp-action="Create" asp-route-id="@Model.Animals.Id">Add Comment</a>
+            <div class="collapse flex-grow-1 flex-column d-flex align-items-end justify-content-end" id="navbarNav">
+                <a asp-controller="Comments" class="btn btn-outline-info" asp-action="PostComments" asp-route-id="@Model.Animals.Id">View Comments</a>
+                <a asp-controller="Comments" class="btn btn-outline-success" asp-action="Create" asp-route-id="@Model.Animals.Id">Add Comment</a>
+            </div>
         </div>
-    </div>
+     </div>
 </body>
 </html>
