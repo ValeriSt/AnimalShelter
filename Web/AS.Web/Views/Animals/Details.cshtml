@@ -22,11 +22,13 @@
             position: absolute;
             width: 60%;
             left: 20%;
+            text-align: center;
         }
 
         body {
             padding-bottom: 15%;
         }
+
 
     </style>
     <meta name="viewport" content="width=device-width" />
@@ -39,18 +41,18 @@
     </div>
     <div class="rectangle">
         <dl class="row">
-            <ul>
-                <img src="@Model.Animals.ImageURL" width="300" height="300" />
-                <li>Type: @Model.Animals.AnimalType</li>
-                <li>Name: @Model.Animals.Name</li>
-                <li>Age: @Model.Animals.Age</li>
-                <li>Color: @Model.Animals.Color</li>
-                <li>Sex: @Model.Animals.Sex</li>
-                <li>Status: @Model.Animals.Status</li>
-                <li>Location: @Model.Animals.Location</li>
-                <li>Date & Time: @Model.Animals.DateTime</li>
-                @*<li>Created by: @Model.Animals.User.Email</li>*@
-            </ul>
+                <ul>
+                    <img src="@Model.Animals.ImageURL" width="300" height="300" />
+                    <li>Type: @Model.Animals.AnimalType</li>
+                    <li>Name: @Model.Animals.Name</li>
+                    <li>Age: @Model.Animals.Age</li>
+                    <li>Color: @Model.Animals.Color</li>
+                    <li>Sex: @Model.Animals.Sex</li>
+                    <li>Status: @Model.Animals.Status</li>
+                    <li>Location: @Model.Animals.Location</li>
+                    <li>Date & Time: @Model.Animals.DateTime</li>
+                    @*<li>Created by: @Model.Animals.User.Email</li>*@
+                </ul>
         </dl>
         <div class="d-flex m-auto p-2 w-75">
             <div>

@@ -22,27 +22,37 @@
             box-shadow: 5px 5px #888888;
         }
 
-        #button{
+        #button {
             position: absolute;
-            left: 3.5%;
+            left: 22%;
         }
 
-        .reposition{
+        .reposition {
             margin-top: 5%;
         }
 
-        body{
+        body {
             padding-bottom: 15%;
         }
 
+        .txt {
+            text-align: center;
+        }
+
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
 
 </head>
+
 <body>
+    <p id="button" class="w-75 m-auto p-1">
+        <a class="btn btn-outline-success " asp-action="Create">Create New</a>
+    </p>
     <div class="rectangle">
-        <p id="button" class="w-75 m-auto p-1">
-            <a class="btn btn-outline-success " asp-action="Create">Create New</a>
-        </p>
         <div class="reposition">
             <div class="row">
                 @foreach (var item in Model)
@@ -52,9 +62,9 @@
                             <div class="card__side card__side--front-1">
                                 <div class="card__details">
                                     <img src="@item.ImageUrl" width="150" height="150" />
-                                    <p>Name: @item.Name</p>
-                                    <p>Status: @item.Status</p>
-                                    <p>Location: @item.Location</p>
+                                    <p class="txt">Name: @item.Name</p>
+                                    <p class="txt">Status: @item.Status</p>
+                                    <p class="txt">Location: @item.Location</p>
                                     <div class="d-flex flex-grow-1 align-items-end justify-content-end">
                                         <a class="btn btn-info m-1" asp-controller="Animals" asp-action="Details" asp-route-id="@item.Id">Details</a>
 
