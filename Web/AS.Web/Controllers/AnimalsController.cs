@@ -20,7 +20,7 @@ namespace AS.Web.Controllers
 
         private UserManager<ASUser> userManager;
 
-        public AnimalsController(ASDbContext aSDbContext, UserManager<ASUser> userMrg)
+        public AnimalsController(ASDbContext aSDbContext, IUserManager<ASUser> userMrg)
         {
             this.aSDbContext = aSDbContext;
             this.userManager = userMrg;
