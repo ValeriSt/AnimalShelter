@@ -5,47 +5,71 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Edit</title>
+
+    <style>
+        .rectangle {
+            position: absolute;
+            height: auto;
+            width: 60%;
+            top: 20%;
+            left: 20%;
+            background-color: white;
+            z-index: -1;
+            border: 1px solid;
+            padding: 10px;
+            box-shadow: 5px 5px #888888;
+        }
+
+        .reposition {
+            position: absolute;
+            width: 60%;
+            left: 20%;
+        }
+    </style>  
 </head>
 <body>
-    <h4>Edit</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Events.Id" />
-                <div class="form-group">
-                    <label asp-for="Events.Location" class="control-label"></label>
-                    <input asp-for="Events.Location" class="form-control" />
-                    <span asp-validation-for="Events.Location" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Events.Description" class="control-label"></label>
-                    <input asp-for="Events.Description" class="form-control" />
-                    <span asp-validation-for="Events.Description" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Events.ImageUrl" class="control-label"></label>
-                    <input asp-for="Events.ImageUrl" class="form-control" />
-                    <span asp-validation-for="Events.ImageUrl" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Events.DateTime" class="control-label"></label>
-                    <input asp-for="Events.DateTime" class="form-control" />
-                    <span asp-validation-for="Events.DateTime" class="text-danger"></span>
-                </div>
-                <input type="hidden" asp-for="Events.UserId" />
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                </div>
-            </form>
+    <div class="reposition">
+        <h4>Edit</h4>
+        <hr />
+    </div>
+    <div class="rectangle">
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Events.Id" />
+                    <div class="form-group">
+                        <label asp-for="Events.Location" class="control-label"></label>
+                        <input asp-for="Events.Location" class="form-control" />
+                        <span asp-validation-for="Events.Location" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Events.Description" class="control-label"></label>
+                        <input asp-for="Events.Description" class="form-control" />
+                        <span asp-validation-for="Events.Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Events.ImageUrl" class="control-label"></label>
+                        <input asp-for="Events.ImageUrl" class="form-control" />
+                        <span asp-validation-for="Events.ImageUrl" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Events.DateTime" class="control-label"></label>
+                        <input asp-for="Events.DateTime" class="form-control" />
+                        <span asp-validation-for="Events.DateTime" class="text-danger"></span>
+                    </div>
+                    <input type="hidden" asp-for="Events.UserId" />
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index">Back to List</a>
         </div>
     </div>
-
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
-
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }

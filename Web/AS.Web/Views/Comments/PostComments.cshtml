@@ -7,55 +7,75 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        .rectangle {
+            position: absolute;
+            height: auto;
+            width: 60%;
+            left: 20%;
+            margin: auto;
+            background-color: white;
+            z-index: -1;
+            border: 1px solid;
+            padding: 10px;
+            box-shadow: 5px 5px #888888;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-    <table class="table">
-        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-            <a asp-controller="Comments" asp-action="Create" asp-route-id="@regex.Match(Context.Request.Path)">Add New Comment</a>
-        </div>
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Text)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <div class="row">
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Text)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        @if (item.IsAuthorized)
-                        {
-                        <td> 
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        </td>
-                        }
-                    </tr>
-                }
+    <div class="rectangle">
+        <table class="table">
+            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+                <a asp-controller="Comments" asp-action="Create" asp-route-id="@regex.Match(Context.Request.Path)">Add New Comment</a>
             </div>
-        </tbody>
-    </table>
-    <div>
-        <a asp-controller="Animals" asp-action="Index">Back to List</a>
-    </div>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Text)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Text)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            @if (item.IsAuthorized)
+                            {
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </div>
+            </tbody>
+        </table>
+        <div>
+            <a asp-controller="Animals" asp-action="Index">Back to List</a>
+        </div>
+        </div>
 </body>
 </html>

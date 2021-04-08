@@ -4,33 +4,64 @@
     ViewData["Title"] = "Edit";
 }
 
-<h4>Edit</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Comments.Id" />
-            <div class="form-group">
-                <label asp-for="Comments.DateTime" class="control-label"></label>
-                <input asp-for="Comments.DateTime" class="form-control" />
-                <span asp-validation-for="Comments.DateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Comments.Text" class="control-label"></label>
-                <input asp-for="Comments.Text" class="form-control" />
-                <span asp-validation-for="Comments.Text" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-            <input type="hidden" asp-for="Comments.UserId" />
-            <input type="hidden" asp-for="Comments.AnimalPostId" />
-        </form>
+
+<style>
+
+    .rectangle {
+        position: absolute;
+        height: auto;
+        width: 60%;
+        top: 25%;
+        left: 20%;
+        margin: auto;
+        background-color: white;
+        z-index: -1;
+        border: 1px solid;
+        padding: 10px;
+        box-shadow: 5px 5px #888888;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    .reposition {
+        position: absolute;
+        width: 60%;
+        left: 20%;
+        text-align: center;
+    }
+</style>
+
+
+<div class="reposition">
+    <h4>Edit</h4>
+    <hr />
     </div>
-</div>
+<div class="rectangle">
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Comments.Id" />
+        <div class="form-group">
+            <label asp-for="Comments.DateTime" class="control-label"></label>
+            <input asp-for="Comments.DateTime" class="form-control" />
+            <span asp-validation-for="Comments.DateTime" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Comments.Text" class="control-label"></label>
+            <input asp-for="Comments.Text" class="form-control" />
+            <span asp-validation-for="Comments.Text" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+        <input type="hidden" asp-for="Comments.UserId" />
+        <input type="hidden" asp-for="Comments.AnimalPostId" />
+    </form>
 
+
+    <div>
+        <a asp-controller="Animals" asp-action="Index">Back to List</a>
+    </div>
+
+</div>
