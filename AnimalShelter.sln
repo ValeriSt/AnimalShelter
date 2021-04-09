@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{3D75BD4A-C67
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS.Web", "Web\AS.Web\AS.Web.csproj", "{B4C85192-D94A-4A86-B326-A1ADB636AC89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS.Web.Tests", "AS.Web.Tests\AS.Web.Tests.csproj", "{A4ADF61F-0E48-4E00-927E-5957D3BB6EFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AS.Web.Tests", "AS.Web.Tests\AS.Web.Tests.csproj", "{A4ADF61F-0E48-4E00-927E-5957D3BB6EFA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

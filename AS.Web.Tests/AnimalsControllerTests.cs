@@ -7,7 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,7 +20,7 @@ namespace AS.Web.Tests
     public class AnimalsControllerTests
     {
         private ASDbContext _asDbContext;
-        //private Mock<UserManager<ASUser>> _userManager;
+        private Mock<UserManager<ASUser>> _userManager;
         private AnimalsController _animalsController;
 
         [SetUp]
@@ -26,32 +29,21 @@ namespace AS.Web.Tests
             DbContextOptionsBuilder<ASDbContext> optionsBuilder = new DbContextOptionsBuilder<ASDbContext>()
                 .UseInMemoryDatabase(databaseName: "AnimalShelter_Test_Database");
             this._asDbContext = new ASDbContext(optionsBuilder.Options);
-            //this._userManager = new Mock<UserManager<ASUser>>();
-            //this._animalsController = new AnimalsController(this._asDbContext);
+            var UserStoreMock = Mock.Of<IUserStore<ASUser>>();
+            this._userManager = new Mock<UserManager<ASUser>>(UserStoreMock, null, null, null, null, null, null, null, null);
+            this._animalsController = new AnimalsController(this._asDbContext, _userManager.Object);
         }
-        
+
+        [TearDown]
+        public void Dispose()
+        {
+            this._asDbContext.Dispose();
+            this._animalsController = null;
+        }
         [Test]
         public async Task Create_CreatesAnimalAndReturnsARedirect_WhenModelStateIsValid()
         {
-            var UserStoreMock = Mock.Of<IUserStore<ASUser>>();
-            var userMgr = new Mock<UserManager<ASUser>>(UserStoreMock, null, null, null, null, null, null, null, null);
-            var user = new ASUser() { Id = "f00", Email = "f00@example.com" };
-            var tcs = new TaskCompletionSource<ASUser>();
-            tcs.SetResult(user);
-            userMgr.Setup(x => x.FindByIdAsync("f00")).Returns(tcs.Task);
-
-            ASAnimals model = new ASAnimals
-            {
-                AnimalType = "Intel",
-                Name = "Core I9",
-                Age = 8,
-                Color = "Blue",
-                ImageURL = "https://never-gonna-give-you-up.com/rick.png",
-                Sex = "Male",
-                Status = "Lost",
-                Location = "QWERTY",
-                DateTime = new System.DateTime(2008, 3, 1, 7, 0, 0)
-            };
+            _userManager.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(new ASUser());
 
             ASAnimals expectedEntity = new ASAnimals
             {
@@ -65,26 +57,193 @@ namespace AS.Web.Tests
                 Location = "QWERTY",
                 DateTime = new System.DateTime(2008, 3, 1, 7, 0, 0)
             };
-            //IActionResult result = await this._animalsController.Create(model);
+            IActionResult result = await this._animalsController.Create(expectedEntity);
             ASAnimals actualEntity = await this._asDbContext.ASAnimals.FirstOrDefaultAsync();
 
-            Assert.AreEqual(expectedEntity.AnimalType, actualEntity.AnimalType, "Create() method does not map AnimalType property correctly.");
-            Assert.AreEqual(expectedEntity.Name, actualEntity.Name, "Create() method does not map Name property correctly.");
-            Assert.AreEqual(expectedEntity.Age, actualEntity.Age, "Create() method does not map Age property correctly.");
-            Assert.AreEqual(expectedEntity.Color, actualEntity.Color, "Create() method does not map Color property correctly.");
-            Assert.AreEqual(expectedEntity.ImageURL, actualEntity.ImageURL, "Create() method does not map ImageURL property correctly.");
-            Assert.AreEqual(expectedEntity.Sex, actualEntity.Sex, "Create() method does not map Sex property correctly.");
-            Assert.AreEqual(expectedEntity.Status, actualEntity.Status, "Create() method does not map Status property correctly.");
-            Assert.AreEqual(expectedEntity.Location, actualEntity.Location, "Create() method does not map Locartion property correctly.");
-            Assert.AreEqual(expectedEntity.DateTime, actualEntity.DateTime, "Create() method does not map DateTime property correctly.");
-            Assert.NotNull(actualEntity.Id, "CreateProcessorPart() method does not set Id property correctly.");
-        }
-        [TearDown]
-        public void Dispose()
-        {
-            this._asDbContext.Dispose();
-            this._animalsController = null;
+            expectedEntity.Id = actualEntity.Id;
+            Assert.AreEqual(JsonSerializer.Serialize(expectedEntity), JsonSerializer.Serialize(actualEntity), "Create() method does not map properties correctly.");
+            Assert.NotNull(actualEntity.Id, "Create() method does not set Id property correctly.");
+            Assert.IsInstanceOf<RedirectToActionResult>(result);
         }
 
+        [Test]
+        public async Task Create_ReturnsView_WhenModelStateIsntValid()
+        {
+            this._animalsController.ModelState.AddModelError("test", "test");
+            var result = await this._animalsController.Create(null);
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+
+        [Test]
+        public async Task Details_ReturnsNotFound_WhenIdIsNull()
+        {
+            var result = await this._animalsController.Details(null);
+            Assert.IsInstanceOf<NotFoundResult>(result);
+        }
+        [Test]
+        public async Task Details_ReturnsNotFound_WhenAnimalIsNull()
+        {
+            var result = await this._animalsController.Details("");
+            Assert.IsInstanceOf<NotFoundResult>(result);
+        }
+        [Test]
+        public async Task Details_ReturnsView_WhenAnimalIsValid()
+        {
+            ASAnimals animals = new ASAnimals()
+            {
+                Id = new Guid().ToString()
+            };
+            var obj = _asDbContext.ASAnimals.Add(animals);
+            _asDbContext.SaveChanges();
+            var result = await this._animalsController.Details(obj.Entity.Id);
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+
+        [Test]
+        public async Task Edit_ReturnsNotFound_WhenIdIsNull()
+        {
+            var result = await this._animalsController.Edit(null);
+            Assert.IsInstanceOf<NotFoundResult>(result);
+        }
+        [Test]
+        public async Task Edit_ReturnsUnauthorized_WhenAnimalIsntAuthorized()
+        {
+            _userManager.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(new ASUser());
+            ASAnimals animals = new ASAnimals()
+            {
+                Id = new Guid().ToString(),
+                UserId = new Guid().ToString()
+            };
+            _asDbContext.ASAnimals.Add(animals);
+            _asDbContext.SaveChanges();
+            _userManager.Setup(x => x.IsInRoleAsync(It.IsAny<ASUser>(), It.IsAny<string>())).ReturnsAsync(false);
+            var result = await this._animalsController.Edit(animals.Id);
+            Assert.IsInstanceOf<UnauthorizedResult>(result);
+        }
+        [Test]
+        public async Task Edit_ReturnsNotFound_WhenAnimalIsNull()
+        {
+            _userManager.Setup(x => x.IsInRoleAsync(It.IsAny<ASUser>(), It.IsAny<string>())).ReturnsAsync(true);
+            var result = await this._animalsController.Edit("");
+            Assert.IsInstanceOf<NotFoundResult>(result);
+        }
+        [Test]
+        public async Task Edit_ReturnsView_WhenAnimalIsValid()
+        {
+            ASAnimals animals = new ASAnimals()
+            {
+                Id = new Guid().ToString()
+            };
+            _asDbContext.ASAnimals.Add(animals);
+            _asDbContext.SaveChanges();
+            _userManager.Setup(x => x.IsInRoleAsync(It.IsAny<ASUser>(), It.IsAny<string>())).ReturnsAsync(true);
+            var result = await this._animalsController.Edit(animals.Id);
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+        [Test]
+        public async Task Edit_ReturnsNotFound_WhenIdIsTheSameAsAnimalsId()
+        {
+            ASAnimals animals = new ASAnimals()
+            {
+                Id = new Guid().ToString()
+            };
+            var result = await this._animalsController.Edit("", animals);
+            Assert.IsInstanceOf<NotFoundResult>(result);
+        }
+        [Test]
+        public async Task Edit_ReturnsUnAuthorized_WhenAnimalIsntAuthorized()
+        {
+            _userManager.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(new ASUser());
+            ASAnimals animals = new ASAnimals()
+            {
+                Id = new Guid().ToString(),
+                UserId = new Guid().ToString()
+            };
+            _asDbContext.ASAnimals.Add(animals);
+            _asDbContext.SaveChanges();
+            _userManager.Setup(x => x.IsInRoleAsync(It.IsAny<ASUser>(), It.IsAny<string>())).ReturnsAsync(false);
+            var result = await this._animalsController.Edit(animals.Id, animals);
+            Assert.IsInstanceOf<UnauthorizedResult>(result);
+        }
+
+        [Test]
+        public async Task Delete_ReturnsNotFound_WhenIdIsNull()
+        {
+            var result = await this._animalsController.Delete(null);
+            Assert.IsInstanceOf<NotFoundResult>(result);
+        }
+        [Test]
+        public async Task Delete_ReturnsUnAuthorized_WhenIdIsNotAuthorized()
+        {
+            _userManager.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(new ASUser());
+            ASAnimals animals = new ASAnimals()
+            {
+                Id = new Guid().ToString(),
+                UserId = new Guid().ToString()
+            };
+            var obj = _asDbContext.ASAnimals.Add(animals);
+            _asDbContext.SaveChanges();
+            _userManager.Setup(x => x.IsInRoleAsync(It.IsAny<ASUser>(), It.IsAny<string>())).ReturnsAsync(false);
+            var result = await this._animalsController.Delete(obj.Entity.Id);
+            Assert.IsInstanceOf<UnauthorizedResult>(result);
+        }
+        [Test]
+        public async Task Delete_ReturnsNotFound_WhenAnimalIsNull()
+        {
+            _userManager.Setup(x => x.IsInRoleAsync(It.IsAny<ASUser>(), It.IsAny<string>())).ReturnsAsync(true);
+            var result = await this._animalsController.Delete("");
+            Assert.IsInstanceOf<NotFoundResult>(result);
+        }
+
+        [Test]
+        public async Task Delete_ReturnsView_WhenAnimalIsValid()
+        {
+            ASAnimals animals = new ASAnimals()
+            {
+                Id = "foo"
+            };
+            var obj = this._asDbContext.ASAnimals.Add(animals);
+            _asDbContext.SaveChanges();
+            _userManager.Setup(x => x.IsInRoleAsync(It.IsAny<ASUser>(), It.IsAny<string>())).ReturnsAsync(true);
+            var result = await this._animalsController.Delete(obj.Entity.Id);
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+        [Test]
+        public async Task DeleteAnimal_ReturnsUnAuthorized_WhenIdIsNotAuthorized()
+        {
+            _userManager.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(new ASUser());
+            ASAnimals animals = new ASAnimals()
+            {
+                Id = new Guid().ToString(),
+                UserId = new Guid().ToString()
+            };
+            _asDbContext.ASAnimals.Add(animals);
+            _asDbContext.SaveChanges();
+            _userManager.Setup(x => x.IsInRoleAsync(It.IsAny<ASUser>(), It.IsAny<string>())).ReturnsAsync(false);
+            var result = await this._animalsController.DeleteAnimal(animals.Id);
+            Assert.IsInstanceOf<UnauthorizedResult>(result);
+        }
+        [Test]
+        public async Task DeleteAnimal_ReturnsRedirectToAction_WhenCommentIsRemoved()
+        {
+            ASComments comments = new ASComments()
+            {
+                Id = new Guid().ToString()
+            };
+            ASAnimals animals = new ASAnimals()
+            {
+                Id = new Guid().ToString(),
+                Comments = new List<ASComments>()
+                {
+                    comments
+                }
+            };
+            this._asDbContext.ASComments.Add(comments);
+            this._asDbContext.ASAnimals.Add(animals);
+            _asDbContext.SaveChanges();
+            _userManager.Setup(x => x.IsInRoleAsync(It.IsAny<ASUser>(), It.IsAny<string>())).ReturnsAsync(true);
+            var result = await this._animalsController.DeleteAnimal(animals.Id);
+            Assert.IsInstanceOf<RedirectToActionResult>(result);
+        }
     }
 }
