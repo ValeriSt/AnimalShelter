@@ -46,10 +46,10 @@ namespace AS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await userManager.GetUserAsync(HttpContext.User);
+                var user = await userManager.GetUserAsync(HttpContext?.User);
                 comments.UserId = user.Id;
                 comments.Id = Guid.NewGuid().ToString();
-                comments.AnimalPostId = this.RouteData.Values["Id"].ToString();
+                comments.AnimalPostId = this.RouteData?.Values["Id"].ToString();
                 aSDbContext.Add(comments);
                 await aSDbContext.SaveChangesAsync();
                 return this.Redirect($"/Comments/{comments.AnimalPostId}");
@@ -115,14 +115,15 @@ namespace AS.Web.Controllers
         }
         public async Task<IActionResult> Delete(string id)
         {
-            if (!await IsAuthorized(id))
-            {
-                return Unauthorized();
-            }
             if (id == null)
             {
                 return NotFound();
             }
+            if (!await IsAuthorized(id))
+            {
+                return Unauthorized();
+            }
+            
 
             var comments = await aSDbContext.ASComments
                 .FirstOrDefaultAsync(c => c.Id == id);
@@ -169,7 +170,7 @@ namespace AS.Web.Controllers
         }
         public async Task<bool> IsAuthorized(string commentId)
         {
-            var user = await userManager.GetUserAsync(HttpContext.User);
+            var user = await userManager.GetUserAsync(HttpContext?.User);
             var comment = await aSDbContext.ASComments.FindAsync(commentId);
             return await userManager.IsInRoleAsync(user, "Admin") || comment.UserId == user.Id;
         }
