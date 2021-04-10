@@ -13,6 +13,7 @@
             position: absolute;
             height: auto;
             width: 60%;
+            top: 20%;
             left: 20%;
             margin: auto;
             background-color: white;
@@ -24,15 +25,22 @@
             margin-right: auto;
             text-align: center;
         }
+
+        .reposition {
+            position: absolute;
+            left: 20%;
+        }
     </style>
 </head>
 
 <body>
+    
+    <div class="reposition">
+        <a class="btn btn-outline-success " asp-controller="Comments" asp-action="Create" asp-route-id="@regex.Match(Context.Request.Path)">Add New Comment</a>
+    </div>
     <div class="rectangle">
         <table class="table">
-            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
-                <a asp-controller="Comments" asp-action="Create" asp-route-id="@regex.Match(Context.Request.Path)">Add New Comment</a>
-            </div>
+
             <thead>
                 <tr>
                     <th>
@@ -64,8 +72,8 @@
                             @if (item.IsAuthorized)
                             {
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    <a class="btn btn-success m-1" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                    <a class="btn btn-danger m-1" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                                 </td>
                             }
                         </tr>
@@ -76,6 +84,6 @@
         <div>
             <a asp-controller="Animals" asp-action="Index">Back to List</a>
         </div>
-        </div>
+    </div>
 </body>
 </html>
