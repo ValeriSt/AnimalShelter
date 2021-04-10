@@ -21,6 +21,7 @@
             z-index: -1;
             border: 1px solid;
             box-shadow: 5px 5px #888888;
+            
         }
 
         #button {
@@ -45,6 +46,15 @@
             margin-left: auto;
             margin-right: auto;
         }
+        .p-3 {
+            display: block;
+            width: 33%;
+            margin-left: 1%;
+            margin-right: -1.5%;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
     </style>
 
 </head>
@@ -58,14 +68,14 @@
             <div class="row">
                 @foreach (var item in Model)
                 {
-                    <div class="w-3 p-3 m-auto">
+                    <div class="p-3">
                         <div class="card">
                             <div class="card__side card__side--front-1">
                                 <div class="card__details">
-                                    <img src="@item.ImageUrl" width="150" height="150" />
-                                    <p class="txt">Name: @item.Name</p>
-                                    <p class="txt">Status: @item.Status</p>
-                                    <p class="txt">Location: @item.Location</p>
+                                    <img src="@item.ImageUrl" width="150" height="150"/>
+                                    <p class="txt">Name: @item.Name </p>
+                                    <p class="txt" >Status: @item.Status </p>
+<p class="txt">Location: @item.Location</p>
                                     <div class="d-flex flex-grow-1 align-items-end justify-content-end">
                                         <a class="btn btn-info m-1" asp-controller="Animals" asp-action="Details" asp-route-id="@item.Id">Details</a>
 
