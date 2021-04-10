@@ -20,6 +20,8 @@
             border-color: floralwhite;
             position: fixed;
             bottom: 0;
+            width: 60%;
+            left: 20%;
         }
 
         nav {
@@ -35,6 +37,13 @@
             background-position: right;
             background-color: white;
             margin-bottom: 40%;
+        }
+
+        .ads{
+            position: fixed;
+            top: 5%;
+            left: 2%;
+            z-index: 0;
         }
     </style>
 </head>
@@ -94,15 +103,16 @@
             @RenderBody()
         </main>
     </div>
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy;<a asp-area="" asp-controller="Home" asp-action="Privacy">Rules</a>
-            </div>
-        </footer>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy;<a asp-area="" asp-controller="Home" asp-action="Privacy">Rules</a>
+        </div>
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+    <img class="ads" src="https://fitsmallbusiness.com/wp-content/uploads/2019/06/word-image-1873.png" />
 
 </body>
 </html>
