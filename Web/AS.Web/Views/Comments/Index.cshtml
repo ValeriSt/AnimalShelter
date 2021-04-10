@@ -7,52 +7,68 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        .rectangle {
+            position: center;
+            height: auto;
+            width: 60%;
+            margin: auto;
+            background-color: white;
+            z-index: -1;
+            border: 1px solid;
+            padding: 10px;
+            box-shadow: 5px 5px #888888;
+        }
+    </style>
 </head>
 
 <body>
-    <table class="table">
-        @*<p>
+    <div class="rectangle">
+        <table class="table">
+            @*<p>
                 <a asp-action="Create">Add New</a>
             </p>*@
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Text)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateTime)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <div class="row">
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Text)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </div>
-        </tbody>
-    </table>
-    <div>
-        <a asp-controller="Animals" asp-action="Index">Back to List</a>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Text)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Text)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-success " asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                <a class="btn btn-outline-success " asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </div>
+            </tbody>
+        </table>
+        <div>
+            <a asp-controller="Animals" asp-action="Index">Back to List</a>
+        </div>
     </div>
 </body>
 </html>

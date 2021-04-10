@@ -1,6 +1,37 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Our Rules";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<style>
+    .rectangle {
+        position: absolute;
+        height: auto;
+        width: 60%;
+        top: 25%;
+        left: 20%;
+        background-color: white;
+        z-index: -1;
+        border: 1px solid;
+        padding: 10px;
+        box-shadow: 5px 5px #888888;
+    }
+
+    .reposition {
+        position: absolute;
+        width: 60%;
+        left: 20%;
+    }
+</style>
+
+
+<div class="reposition">
+    <h1>Our Rules</h1>
+
+    <p>This is our detailed site's privacy policy.</p>
+    <hr />
+</div>
+
+<div class="rectangle">
+    <p>1. The site is meant to be in help for people that lost their pet.</p>
+    <p>2. Don't post fake or the admin might delete your account.</p>
+</div>

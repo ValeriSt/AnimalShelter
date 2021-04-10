@@ -4,12 +4,39 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<style>
 
-<h4>ASComments</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+    .rectangle {
+        position: absolute;
+        height: auto;
+        width: 60%;
+        top: 25%;
+        left: 20%;
+        margin: auto;
+        background-color: white;
+        z-index: -1;
+        border: 1px solid;
+        padding: 10px;
+        box-shadow: 5px 5px #888888;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    .reposition {
+        position: absolute;
+        width: 60%;
+        left: 20%;
+        text-align: center;
+    }
+</style>
+
+<div class="reposition">
+    <h1>Create</h1>
+    <hr />
+</div>
+
+<div class="rectangle">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -26,10 +53,7 @@
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
+    <div>
+        <a asp-controller="Animals" asp-action="Index">Back to List</a>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
