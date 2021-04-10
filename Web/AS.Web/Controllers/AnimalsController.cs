@@ -57,7 +57,7 @@ namespace AS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await userManager.GetUserAsync(HttpContext.User);
+                var user = await userManager.GetUserAsync(HttpContext?.User);
                 animals.UserId = user.Id;
                 animals.Id = Guid.NewGuid().ToString();
                 aSDbContext.Add(animals);
@@ -123,23 +123,23 @@ namespace AS.Web.Controllers
             }
             if (ModelState.IsValid)
             {              
-                try
-                {
+                //try
+                //{
                     var dbAnimals = await aSDbContext.ASAnimals.FindAsync(id);
                     aSDbContext.Entry(dbAnimals).CurrentValues.SetValues(animals);
                     await aSDbContext.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AnimalExists(animals.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw new Exception("");
-                    }
-                }
+                //}
+                //catch (DbUpdateConcurrencyException)
+                //{
+                //    if (!AnimalExists(animals.Id))
+                //    {
+                //        return NotFound();
+                //    }
+                //    else
+                //    {
+                //        throw new Exception("");
+                //    }
+                //}
                 return this.RedirectToAction(nameof(Index));
             }
             return View(animals);
@@ -160,7 +160,6 @@ namespace AS.Web.Controllers
             {
                 return NotFound();
             }
-
             return View(animal);
         }
         [HttpPost, ActionName("Delete")]
@@ -187,7 +186,7 @@ namespace AS.Web.Controllers
 
         public async Task<bool> IsAuthorized(string animalId) 
         {
-            var user = await userManager.GetUserAsync(HttpContext.User);
+            var user = await userManager.GetUserAsync(HttpContext?.User);
             var animals = await aSDbContext.ASAnimals.FindAsync(animalId);
             return await userManager.IsInRoleAsync(user, "Admin") || animals.UserId == user.Id;
         }
