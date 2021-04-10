@@ -119,8 +119,8 @@
             <dd class="col-sm-2">
                 @Html.DisplayFor(model => item.Email)
             </dd>
-            <dd class="col-sm-10" style="border: 1px; border-color: black; background-color:lightcoral; " >
-                @Html.DisplayFor(model => item.GoingUsers.Count)
+            <dd class="col-sm-10" style="border: 1px; border-color: black; background-color:lightcoral; margin-left: 1%; margin:auto;" >
+                <a>People Going: </a> @Html.DisplayFor(model => item.GoingUsers.Count)
             </dd>
             
 
@@ -128,11 +128,12 @@
             {
                 @if (!item.IsSubscribed)
                 {
-                    <a asp-controller="Events" asp-action="Subscribe" asp-route-id="@item.Id">Subscribe</a>
+                    
+                    <a class="btn btn-outline-primary" asp-controller="Events" asp-action="Subscribe" asp-route-id="@item.Id">Subscribe</a>
                 }
                 else
                 {
-                    <a asp-controller="Events" asp-action="UnSubscribe" asp-route-id="@item.Id">UnSubscribe</a>
+                    <a class="btn btn-outline-danger" asp-controller="Events" asp-action="UnSubscribe" asp-route-id="@item.Id">UnSubscribe</a>
                 }
             }
             @if (item.IsAdmin)
