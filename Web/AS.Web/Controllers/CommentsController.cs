@@ -92,23 +92,23 @@ namespace AS.Web.Controllers
             }
             if (ModelState.IsValid)
             {
-                try
-                {
+                //try
+                //{
                     var dbComments = await aSDbContext.ASComments.FindAsync(id);
                     aSDbContext.Entry(dbComments).CurrentValues.SetValues(comments);
                     await aSDbContext.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CommentExists(comments.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw new Exception("");
-                    }
-                }
+                //}
+                //catch (DbUpdateConcurrencyException)
+                //{
+                  //  if (!CommentExists(comments.Id))
+                  //  {
+                  //      return NotFound();
+                  //  }
+                  //  else
+                  //  {
+                  //      throw new Exception("");
+                  //  }
+                //}
                 return this.Redirect($"/Comments/{comments.AnimalPostId}");
             }
             return View(comments);

@@ -32,7 +32,12 @@ namespace AS.Web.Tests
             this._userManager = new Mock<UserManager<ASUser>>(UserStoreMock, null, null, null, null, null, null, null, null);
             this._commentsController = new CommentsController(this._asDbContext, _userManager.Object);
         }
-
+        [TearDown]
+        public void Dispose()
+        {
+            this._asDbContext.Dispose();
+            this._commentsController = null;
+        }
         [Test]
         public async Task Create_CreatesCommentAndReturnsARedirect_WhenModelStateIsValid()
         {
@@ -128,6 +133,34 @@ namespace AS.Web.Tests
         }
         //TODO Edit_ReturnsView and Edit_Try/Catch
         [Test]
+        public async Task Edit_ReturnsRedirect_WhenModelStateIsValid()
+        {
+            _userManager.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(new ASUser());
+            ASComments comments = new ASComments()
+            {
+                Id = new Guid().ToString()
+            };
+            var obj = _asDbContext.ASComments.Add(comments);
+            _asDbContext.SaveChanges();
+            _userManager.Setup(x => x.IsInRoleAsync(It.IsAny<ASUser>(), It.IsAny<string>())).ReturnsAsync(false);
+            var result = await this._commentsController.Edit(obj.Entity.Id, comments);
+            Assert.IsInstanceOf<RedirectResult>(result);
+        }
+        [Test]
+        public async Task Edit_ReturnsView_WhenModelStateIsInvalid()
+        {
+            ASComments comments = new ASComments()
+            {
+                Id = new Guid().ToString()
+            };
+            _asDbContext.ASComments.Add(comments);
+            _asDbContext.SaveChanges();
+            this._commentsController.ModelState.AddModelError("test", "test");
+            _userManager.Setup(x => x.IsInRoleAsync(It.IsAny<ASUser>(), It.IsAny<string>())).ReturnsAsync(true);
+            var result = await this._commentsController.Edit(comments.Id, comments);
+            Assert.IsInstanceOf<ViewResult>(result);
+        }
+        [Test]
         public async Task Delete_ReturnsNotFound_WhenIdIsNull()
         {         
             var result = await this._commentsController.Delete(null);
@@ -157,7 +190,7 @@ namespace AS.Web.Tests
         }
 
         [Test]
-        public async Task Delete_ReturnsView_WhenAnimalIsValid()
+        public async Task Delete_ReturnsView_WhenCommentIsValid()
         {
             ASComments comments = new ASComments()
             {
@@ -185,7 +218,7 @@ namespace AS.Web.Tests
             Assert.IsInstanceOf<UnauthorizedResult>(result);
         }
         [Test]
-        public async Task DeleteAnimal_ReturnsRedirect_WhenCommentIsDeleted()
+        public async Task DeleteComment_ReturnsRedirect_WhenCommentIsDeleted()
         {
             ASComments comments = new ASComments()
             {

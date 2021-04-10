@@ -123,23 +123,23 @@ namespace AS.Web.Controllers
             }
             if (ModelState.IsValid)
             {              
-                try
-                {
+                //try
+                //{
                     var dbAnimals = await aSDbContext.ASAnimals.FindAsync(id);
                     aSDbContext.Entry(dbAnimals).CurrentValues.SetValues(animals);
                     await aSDbContext.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AnimalExists(animals.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw new Exception("");
-                    }
-                }
+                //}
+                //catch (DbUpdateConcurrencyException)
+                //{
+                //    if (!AnimalExists(animals.Id))
+                //    {
+                //        return NotFound();
+                //    }
+                //    else
+                //    {
+                //        throw new Exception("");
+                //    }
+                //}
                 return this.RedirectToAction(nameof(Index));
             }
             return View(animals);
