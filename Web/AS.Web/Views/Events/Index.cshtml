@@ -22,7 +22,8 @@
         left: 20%;
     }
     body {
-        padding-bottom: 40%;
+        padding-bottom: 30%;
+        height: 10px;
     }
 
     select {
@@ -42,6 +43,10 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
+    }
+
+    .col-sm-2 {
+        margin: 0 auto;
     }
 
 </style>
@@ -80,8 +85,8 @@
 
 
 <div class="rectangle">
-    <dl class="row">
-        <dt style="margin-left: 200px;" class="col-sm-2">
+    <dl class="row" z-index: 10;>
+        <dt style="margin-left: 275px;" class="col-sm-2">
             @Html.DisplayNameFor(model => model.Location)
         </dt>
 
@@ -98,10 +103,11 @@
 
         @foreach (var item in Model)
         {
-            <dd class="col-sm-10">
-                <img src="@item.ImageUrl" width="150" height="150" />
+            
+            <dd class="col-sm-1" style=>
+                <img src="@item.ImageUrl" width="150" height="150" style="display: flex"/>
             </dd>
-            <dd style="margin-left: 200px;" class="col-sm-2">
+            <dd style="margin-left: 200px; " class="col-sm-2" >
                 @Html.DisplayFor(model => item.Location)
             </dd>
             <dd class="col-sm-2">
@@ -113,9 +119,11 @@
             <dd class="col-sm-2">
                 @Html.DisplayFor(model => item.Email)
             </dd>
-            <dd class="col-sm-10">
+            <dd class="col-sm-10" style="border: 1px; border-color: black; background-color:lightcoral; " >
                 @Html.DisplayFor(model => item.GoingUsers.Count)
             </dd>
+            
+
             @if (!item.IsOwned)
             {
                 @if (!item.IsSubscribed)
@@ -137,6 +145,7 @@
                 @: 
                 <a class="btn btn-danger m-1" asp-action="Delete" asp-route-id="@item.Id">Delete </a>
             }
+
 
         }
     </dl>

@@ -11,7 +11,7 @@
             position: absolute;
             height: auto;
             width: 60%;
-            top: 20%;
+            top: 15%;
             left: 20%;
             background-color: white;
             z-index: -1;
@@ -20,11 +20,20 @@
             box-shadow: 5px 5px #888888;
         }
 
+
         .reposition {
             position: absolute;
             width: 60%;
             left: 20%;
+            text-align: center;
         }
+        .center-pos {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
     </style>  
 </head>
 <body>
@@ -34,7 +43,8 @@
     </div>
     <div class="rectangle">
         <div class="row">
-            <div class="col-md-4">
+            <div class="center-pos">
+
                 <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Events.Id" />
@@ -64,14 +74,13 @@
                     </div>
                 </form>
             </div>
+            </div>
+            <div>
+                <a asp-action="Index" class="btn btn-dark">Back to List</a>
+            </div>
         </div>
-
-        <div>
-            <a asp-action="Index"  class="btn btn-dark" >Back to List</a>
-        </div>
-    </div>
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }
 </body>
 </html>
