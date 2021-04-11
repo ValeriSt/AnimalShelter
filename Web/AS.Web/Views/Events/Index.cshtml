@@ -6,14 +6,16 @@
     .rectangle {
         position: absolute;
         height: auto;
+        box-sizing: border-box;
         width: 60%;
-        top: 28%;
+        top: 45%;
         left: 20%;
         background-color: white;
         z-index: -1;
         border: 1px solid;
         padding: 10px;
         box-shadow: 5px 5px #888888;
+        overflow-y:auto;
     }
 
     .reposition {
@@ -22,7 +24,6 @@
         left: 20%;
     }
     body {
-        padding-bottom: 30%;
         height: 10px;
     }
 
@@ -85,69 +86,75 @@
 
 
 <div class="rectangle">
-    <dl class="row" z-index: 10;>
-        <dt style="margin-left: 275px;" class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
+    <table class="row" style="z-index: 10;">
+        <tr>
+            <th></th>
+            <th class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DateTime)
-        </dt>
+            <th class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+            <th class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+        </tr>
 
         @foreach (var item in Model)
         {
-            
-            <dd class="col-sm-1" style=>
-                <img src="@item.ImageUrl" width="150" height="150" style="display: flex"/>
-            </dd>
-            <dd style="margin-left: 200px; " class="col-sm-2" >
-                @Html.DisplayFor(model => item.Location)
-            </dd>
-            <dd class="col-sm-2">
-                @Html.DisplayFor(model => item.Description)
-            </dd>
-            <dd class="col-sm-2">
-                @Html.DisplayFor(model => item.DateTime)
-            </dd>
-            <dd class="col-sm-2">
-                @Html.DisplayFor(model => item.Email)
-            </dd>
-            <dd class="col-sm-10" style="border: 1px; border-color: black; background-color:lightcoral; margin-left: 1%; margin:auto;" >
-                <a>People Going: </a> @Html.DisplayFor(model => item.GoingUsers.Count)
-            </dd>
-            
+            <tr style="width: 100%">
+                <td class="col-sm-1">
+                    <img src="@item.ImageUrl" width="150" height="150" style="display: flex" />
+                </td>
+                <td style="margin-left: 200px; " class="col-sm-2">
+                    @Html.DisplayFor(model => item.Location)
+                </td>
+                <td class="col-sm-2">
+                    @Html.DisplayFor(model => item.Description)
+                </td>
+                <td class="col-sm-2">
+                    @Html.DisplayFor(model => item.DateTime)
+                </td>
+                <td class="col-sm-2">
+                    @Html.DisplayFor(model => item.Email)
+                </td>
 
-            @if (!item.IsOwned)
-            {
-                @if (!item.IsSubscribed)
-                {
-                    
-                    <a class="btn btn-outline-primary" asp-controller="Events" asp-action="Subscribe" asp-route-id="@item.Id">Subscribe</a>
-                }
-                else
-                {
-                    <a class="btn btn-outline-danger" asp-controller="Events" asp-action="UnSubscribe" asp-route-id="@item.Id">UnSubscribe</a>
-                }
-            }
-            @if (item.IsAdmin)
-            {
-                @:
-            }
-            @if (item.IsOwned || item.IsAdmin)
-            {
-                <a class="btn btn-success m-1" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                @: 
-                <a class="btn btn-danger m-1" asp-action="Delete" asp-route-id="@item.Id">Delete </a>
-            }
+            </tr>
+            <tr>
+                <td class="pl-4" colspan="5">
+                    <div>
+                        <a>People Going: </a> @Html.DisplayFor(model => item.GoingUsers.Count)
+                    </div>
+                    @if (!item.IsOwned)
+                    {
+                        @if (!item.IsSubscribed)
+                        {
 
+                            <a class="btn btn-outline-primary" asp-controller="Events" asp-action="Subscribe" asp-route-id="@item.Id">Subscribe</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-outline-danger" asp-controller="Events" asp-action="UnSubscribe" asp-route-id="@item.Id">UnSubscribe</a>
+                        }
+                    }
+                    @if (item.IsAdmin)
+                    {
+                        @:
+                    }
+                    @if (item.IsOwned || item.IsAdmin)
+                    {
+                        <a class="btn btn-success m-1" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        @:
+                        <a class="btn btn-danger m-1" asp-action="Delete" asp-route-id="@item.Id">Delete </a>
+                    }
+                </td>
+            </tr>
 
         }
-    </dl>
+    </table>
 </div>
