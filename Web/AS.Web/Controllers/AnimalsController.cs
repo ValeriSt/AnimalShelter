@@ -11,39 +11,23 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Service;
 
 namespace AS.Web.Controllers
 {
     public class AnimalsController : Controller
     {
-        private readonly ASDbContext aSDbContext;
+        private readonly AnimalsService animalsService;
 
-        private UserManager<ASUser> userManager;
-
-        public AnimalsController(ASDbContext aSDbContext, UserManager<ASUser> userMrg)
+        public AnimalsController(AnimalsService animalsService)
         {
-            this.aSDbContext = aSDbContext;
-            this.userManager = userMrg;
+            this.animalsService = animalsService;
         }
 
 
         public async Task<IActionResult> Index()
         {
-            var animals = this.aSDbContext.ASAnimals.Select(animal => new AnimalsIndexViewModel
-            {
-                Id = animal.Id,
-                Name = animal.Name,
-                Status = animal.Status,
-                ImageUrl = animal.ImageURL,
-                Location = animal.Location,
-                UserId = animal.UserId,
-            }).ToList();
-            
-            foreach (var animal in animals)
-            {
-                animal.IsAuthorized = await IsAuthorized(animal.Id);
-            }
-            return this.View(animals);
+            return this.View(animalsService.IndexAnimals(HttpContext?.User));
         }
 
         [HttpGet]
@@ -57,11 +41,7 @@ namespace AS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await userManager.GetUserAsync(HttpContext?.User);
-                animals.UserId = user.Id;
-                animals.Id = Guid.NewGuid().ToString();
-                aSDbContext.Add(animals);
-                await aSDbContext.SaveChangesAsync();
+                this.animalsService.CreateAnimal(animals, HttpContext?.User);
                 return RedirectToAction(nameof(Index));
             }
             return this.View(animals);
@@ -184,11 +164,6 @@ namespace AS.Web.Controllers
             return aSDbContext.ASAnimals.Any(e => e.Id == id);
         }
 
-        public async Task<bool> IsAuthorized(string animalId) 
-        {
-            var user = await userManager.GetUserAsync(HttpContext?.User);
-            var animals = await aSDbContext.ASAnimals.FindAsync(animalId);
-            return await userManager.IsInRoleAsync(user, "Admin") || animals.UserId == user.Id;
-        }
+        
     }
 }
